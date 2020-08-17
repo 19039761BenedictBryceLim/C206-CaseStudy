@@ -3,8 +3,12 @@ import java.util.ArrayList;
 public class C206_CaseStudy {
 
 	public static void main(String[] args) {
+<<<<<<< HEAD
 		// TODO Auto-generated method stub
 		ArrayList<customer> customerList = new ArrayList<customer>();
+=======
+		
+>>>>>>> branch 'master' of https://github.com/19039761BenedictBryceLim/T2-C206-CaseStudy.git
 
 		int option = 0;
 
