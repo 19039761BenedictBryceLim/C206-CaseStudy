@@ -12,7 +12,12 @@ public class product {
 		this.supplierName = supplierName;
 		
 	}
-
+	
+	public String toString() {
+		return String.format("%-10d %-30s %-10s %-10s", productID, description, description, supplierName);
+	}
+	
+	
 	public String getCategory() {
 		return category;
 	}
