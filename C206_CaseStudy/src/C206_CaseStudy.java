@@ -179,10 +179,10 @@ public class C206_CaseStudy {
 
 					if (option == Add_Customre) {
 						// Add items
-						String name = Helper.readString("Enter name> ");
-						int number = Helper.readInt("Enter phone number> ");
+						String name = Helper.readString("Enter name > ");
+						int number = Helper.readInt("Enter phone number > ");
 
-						int points = Helper.readInt("Enter points> ");
+						int points = Helper.readInt("Enter points > ");
 
 						customerList.add(new customer(name, number, points));
 
