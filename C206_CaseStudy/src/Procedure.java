@@ -5,7 +5,9 @@ public class Procedure {
 	public Procedure(String procedure) {
 		this.procedure = procedure;
 	}
-	
+	public void setProcedure (String procedure) {
+		this.procedure = procedure;
+	}
 	public String getProcedure() {
 		return procedure;
 	}

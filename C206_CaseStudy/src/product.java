@@ -8,7 +8,7 @@ public class product {
 	public product(int productID, String description, String category, String supplierName) {
 		this.productID = productID;
 		this.description = description;
-		this.category = "";
+		this.category = category;
 		this.supplierName = supplierName;
 		
 	}
