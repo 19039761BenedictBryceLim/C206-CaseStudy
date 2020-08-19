@@ -326,7 +326,7 @@ public class C206_CaseStudy {
 
 		for (int i = 0; i < customerList.size(); i++) {
 
-			output += String.format("%d %-10s %-20d  %-20d\n", (i + 1), customerList.get(i).getName(),
+			output += String.format("%d %-10s %-20d  %-20d \n", (i + 1), customerList.get(i).getName(),
 					customerList.get(i).getNumber(), customerList.get(i).getPoints());
 
 		}
