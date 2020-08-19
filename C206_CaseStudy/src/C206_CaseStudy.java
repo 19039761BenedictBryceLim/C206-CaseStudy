@@ -8,7 +8,7 @@ public class C206_CaseStudy {
 	private static final int View_CustomerList = 2;
 	private static final int Delete_Customer = 3;
 	private static final int Exit_Customer = 4;
-	private static final int Add_Customre = 1;
+	private static final int Add_Customer = 1;
 	private static final int Exit_Product = 4;
 	private static final int Delete_Product = 3;
 	private static final int View_ProductList = 2;
@@ -51,8 +51,9 @@ public class C206_CaseStudy {
 					option = Helper.readInt("Enter option > ");
 					if (option == Add_Transaction) {
 						//Add Transaction
-						int ID = Helper.readInt("Enter Transaction ID > ");
-						transactionList.add(new Transaction(ID));
+						Transaction t = inputTransaction();
+						C206_CaseStudy.addTransaction(transactionList, t);
+						
 					}
 					else if (option == View_TransactionList) {
 						C206_CaseStudy.viewTransactionList(transactionList);
@@ -83,8 +84,9 @@ public class C206_CaseStudy {
 					C206_CaseStudy.procedureMenu();
 					option = Helper.readInt("Enter an option > ");
 					if (option == Add_Procedure) {
-						String procedure = Helper.readString("Enter new procedure > ");
-						procedureList.add(new Procedure(procedure));
+						Procedure p = inputProcedure();
+						C206_CaseStudy.addProcedure(procedureList, p);
+						
 					}
 					else if (option == View_ProcedureList) {
 						C206_CaseStudy.viewProcedureList(procedureList);
@@ -94,7 +96,7 @@ public class C206_CaseStudy {
 						String procedure = Helper.readString("Enter procedure > ");
 						for (int i = 0; i < procedureList.size(); i++) {
 							if (procedure==procedureList.get(i).getProcedure()) {
-								procedureList.remove(i).getProcedure();
+								procedureList.remove(i);
 							}
 							else {
 								System.out.println("Does not exist.");
@@ -177,14 +179,12 @@ public class C206_CaseStudy {
 					C206_CaseStudy.customerMenu();
 					option = Helper.readInt("Enter an option > ");
 
-					if (option == Add_Customre) {
+					if (option == Add_Customer) {
 						// Add items
-						String name = Helper.readString("Enter name> ");
-						int number = Helper.readInt("Enter phone number> ");
-
-						int points = Helper.readInt("Enter points> ");
-
-						customerList.add(new customer(name, number, points));
+						customer c = inputCustomer();
+						C206_CaseStudy.addCustomer(customerList, c);
+					
+						
 
 					} 
 					else if (option == View_CustomerList) {
@@ -290,6 +290,22 @@ public class C206_CaseStudy {
 		output+= retrieveTransactionList(transactionList);
 		System.out.println(output);
 	}
+	
+	public static void addTransaction(ArrayList<Transaction> transactionList, Transaction t) {
+
+		transactionList.add(t);
+		System.out.println("Transaction added");
+	}
+	
+	public static Transaction inputTransaction() {
+		int tID = Helper.readInt("Enter Transaction ID > ");
+
+		Transaction tr = new Transaction(tID);
+		return tr;
+
+	}
+	
+	
 	//Procedure
 	public static String retrieveProcedureList (ArrayList<Procedure> procedureList) {
 		String output = "";
@@ -304,6 +320,22 @@ public class C206_CaseStudy {
 		output += retrieveProcedureList(procedureList);
 		System.out.println(output);
 		}
+	
+	
+	public static void addProcedure(ArrayList<Procedure> procedureList, Procedure p) {
+
+		procedureList.add(p);
+		System.out.println("Procedure added");
+	}
+	
+	public static Procedure inputProcedure() {
+		String p = Helper.readString("Enter new procedure >  ");
+
+		Procedure pr = new Procedure(p);
+		return pr;
+
+	}
+	
 	
 	//Product
 	public static String retrieveProductList (ArrayList<product> productList) {
@@ -340,6 +372,23 @@ public class C206_CaseStudy {
 		System.out.println(output);
 
 	}
+	
+	public static void addCustomer(ArrayList<customer> customerList, customer c) {
+
+		customerList.add(c);
+		System.out.println("Customer added");
+	}
+	
+	public static customer inputCustomer() {
+		String name = Helper.readString("Enter name> ");
+		int number = Helper.readInt("Enter phone number> ");
+		int points = Helper.readInt("Enter points> ");
+
+		customer cc = new customer(name, number, points);
+		return cc;
+
+	}
+	
 	//Outlet
 	public static String retrieveAllOutlet(ArrayList<Outlet> outletList) {
 	    String output="";

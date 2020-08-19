@@ -2,7 +2,6 @@
 public class customer {
 private String name;
 private int number;
-
 private int points;
 
 public customer(String name, int number, int points) {
