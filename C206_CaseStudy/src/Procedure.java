@@ -11,11 +11,6 @@ public class Procedure {
 	public String getProcedure() {
 		return procedure;
 	}
-	public void viewProcedure() {
-		String output = "";
-		output += String.format("%-20s \n", getProcedure());
-		System.out.println(output);
-	}
 	
 	
 }

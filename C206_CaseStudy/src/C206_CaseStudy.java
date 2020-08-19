@@ -2,6 +2,23 @@ import java.util.ArrayList;
 
 public class C206_CaseStudy {
 
+	private static final int View_CustomerList = 2;
+	private static final int Delete_Customer = 3;
+	private static final int Exit_Customer = 4;
+	private static final int Add_Customre = 1;
+	private static final int Exit_Product = 4;
+	private static final int Delete_Product = 3;
+	private static final int View_ProductList = 2;
+	private static final int Add_Product = 1;
+	private static final int Exit_Procedure = 4;
+	private static final int Delete_Procedure = 3;
+	private static final int View_ProcedureList = 2;
+	private static final int Add_Procedure = 1;
+	private static final int Archive_Transaction = 3;
+	private static final int Exit_Transaction = 4;
+	private static final int Delete_Transaction = 3;
+	private static final int View_TransactionList = 2;
+	private static final int Add_Transaction = 1;
 	private static final int Exit_Option = 6;
 	private static final int Customer_Option = 5;
 	private static final int Outlet_Option = 4;
@@ -29,15 +46,15 @@ public class C206_CaseStudy {
 				while (option != 5) {
 					C206_CaseStudy.transactionMenu();
 					option = Helper.readInt("Enter option > ");
-					if (option == 1) {
+					if (option == Add_Transaction) {
 						//Add Transaction
 						int ID = Helper.readInt("Enter Transaction ID > ");
 						transactionList.add(new Transaction(ID));
 					}
-					else if (option == 2) {
+					else if (option == View_TransactionList) {
 						C206_CaseStudy.viewTransactionList(transactionList);
 					}
-					else if (option == 3) {
+					else if (option == Archive_Transaction) {
 						int ID = Helper.readInt("Enter Transaction ID > ");
 						for (int i = 0; i < transactionList.size(); i++) {
 							if (ID == transactionList.get(i).getTransactionID()) {
@@ -49,7 +66,7 @@ public class C206_CaseStudy {
 							}
 						}
 					}
-					else if (option == 4) {
+					else if (option == Exit_Transaction) {
 						System.out.println("Bye!");
 					}
 					else {
@@ -62,15 +79,15 @@ public class C206_CaseStudy {
 				while (option != 5) {
 					C206_CaseStudy.procedureMenu();
 					option = Helper.readInt("Enter an option > ");
-					if (option == 1) {
+					if (option == Add_Procedure) {
 						String procedure = Helper.readString("Enter new procedure > ");
 						procedureList.add(new Procedure(procedure));
 					}
-					else if (option == 2) {
+					else if (option == View_ProcedureList) {
 						C206_CaseStudy.viewProcedureList(procedureList);
 						
 					}
-					else if (option == 3) {
+					else if (option == Delete_Procedure) {
 						String procedure = Helper.readString("Enter procedure > ");
 						for (int i = 0; i < procedureList.size(); i++) {
 							if (procedure==procedureList.get(i).getProcedure()) {
@@ -80,7 +97,7 @@ public class C206_CaseStudy {
 								System.out.println("Does not exist.");
 							}
 						}
-					}else if (option == 4) {
+					}else if (option == Exit_Procedure) {
 						System.out.println("Bye!");
 					}
 					else {
@@ -94,18 +111,18 @@ public class C206_CaseStudy {
 				while (option != 5) {
 					C206_CaseStudy.productMenu();
 					option = Helper.readInt("Enter an option > ");
-					if (option == 1) {
+					if (option == Add_Product) {
 						int ProductID = Helper.readInt("Enter new product ID > ");
 						String description = Helper.readString("Enter description > ");
 						String category = Helper.readString("Enter category (Food/Beauty) > ");
 						String Supplier = Helper.readString("Enter supplier name > ");
 						productList.add(new product(ProductID, description, category, Supplier));
 					}
-					else if (option == 2) {
+					else if (option == View_ProductList) {
 						C206_CaseStudy.viewProductList(productList);
 						
 					}
-					else if (option == 3) {
+					else if (option == Delete_Product) {
 						int ID = Helper.readInt("Enter product ID > ");
 						for (int i = 0; i < productList.size(); i++) {
 							if (ID == productList.get(i).getProductID()) {
@@ -113,7 +130,7 @@ public class C206_CaseStudy {
 							}
 						}
 					}
-					else if (option == 4) {
+					else if (option == Exit_Product) {
 						System.out.println("Bye!");
 					}
 					else {
@@ -130,7 +147,7 @@ public class C206_CaseStudy {
 					C206_CaseStudy.customerMenu();
 					option = Helper.readInt("Enter an option > ");
 
-					if (option == 1) {
+					if (option == Add_Customre) {
 						// Add items
 						String name = Helper.readString("Enter name> ");
 						int number = Helper.readInt("Enter phone number> ");
@@ -140,11 +157,11 @@ public class C206_CaseStudy {
 						customerList.add(new customer(name, number, points));
 
 					} 
-					else if (option == 2) {
+					else if (option == View_CustomerList) {
 						C206_CaseStudy.viewCustomerList(customerList);
 					}
 
-					else if (option == 3) {
+					else if (option == Delete_Customer) {
 						String name = Helper.readString("Enter name> ");
 						for (int i = 0; i < customerList.size(); i++) {
 							if(name==customerList.get(i).getName()) {
@@ -154,7 +171,7 @@ public class C206_CaseStudy {
 								System.out.println("Does not exist");
 							}
 						}
-					} else if (option == 4) {
+					} else if (option == Exit_Customer) {
 						System.out.println("Bye!");
 					} else {
 						System.out.println("Invalid option");

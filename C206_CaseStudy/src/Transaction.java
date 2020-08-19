@@ -13,11 +13,6 @@ public class Transaction {
 		return transactionID;
 	}
 	
-	
-	public void viewTransaction() {
-		String output = " ";
-		output += String.format("%-20d \n", getTransactionID());
-		System.out.println(output);
-	}
+
 		
 }
