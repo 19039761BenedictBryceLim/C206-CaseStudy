@@ -16,7 +16,6 @@ public class C206_CaseStudy {
 	private static final int Add_Procedure = 1;
 	private static final int Archive_Transaction = 3;
 	private static final int Exit_Transaction = 4;
-	private static final int Delete_Transaction = 3;
 	private static final int View_TransactionList = 2;
 	private static final int Add_Transaction = 1;
 	private static final int Exit_Option = 6;
@@ -33,6 +32,7 @@ public class C206_CaseStudy {
 		ArrayList<Transaction> transactionList = new ArrayList<Transaction>();
 		ArrayList<Transaction> archiveList = new ArrayList<Transaction>();
 		ArrayList<product> productList = new ArrayList<product>();
+		ArrayList<Outlet> outletList = new ArrayList<Outlet>();
 		
 		procedureList.add(new Procedure("Return"));
 		procedureList.add(new Procedure("Exchange"));
@@ -139,11 +139,38 @@ public class C206_CaseStudy {
 				}
 			}
 			else if (option == Outlet_Option) {
-				
+				option = 0;
+				while (option != 5) {
+					C206_CaseStudy.outletMenu();
+					option = Helper.readInt("Enter an option > ");
+					if (option == 1) {
+						String location = Helper.readString("Enter Location > ");
+						int outletID = Helper.readInt("Enter Outlet ID > ");
+						int no_of_staff = Helper.readInt("Enter number of staff > ");
+						outletList.add(new Outlet(location, outletID, no_of_staff));
+					}
+					else if (option == 2) {
+						C206_CaseStudy.viewOutlet(outletList);
+					}
+					else if (option == 3) {
+						int outletID = Helper.readInt("Enter outletID > ");
+						for (int i = 0; i <outletList.size(); i++) {
+							if (outletID == outletList.get(i).getOutlet_id()) {
+								outletList.remove(i);
+							}
+						}
+					} 
+					else if (option == 4) {
+						System.out.println("Bye!");
+					}
+					else {
+						System.out.println("Invalid Option.");
+					}
+				}
 			}
 			else if (option == Customer_Option) {
 				option = 0;
-				while (option != 4) {
+				while (option != 5) {
 					C206_CaseStudy.customerMenu();
 					option = Helper.readInt("Enter an option > ");
 
@@ -225,6 +252,15 @@ public class C206_CaseStudy {
 		System.out.println("4. Quit");
 		Helper.line(80, "-");
 	}
+	//Outlet
+	public static void outletMenu() {
+		C206_CaseStudy.setHeader("Outlet List");
+		System.out.println("1. Add Outlet");
+		System.out.println("2. View Outlet");
+		System.out.println("3. Delete Outlet");
+		System.out.println("4. Quit");
+		Helper.line(80, "-");
+	}
 	//Customer Menu
 	public static void customerMenu() {
 		C206_CaseStudy.setHeader("Customer List");
@@ -300,6 +336,21 @@ public class C206_CaseStudy {
 		output += retrieveCustomerList(customerList);
 		System.out.println(output);
 
+	}
+	//Outlet
+	public static String retrieveAllOutlet(ArrayList<Outlet> outletList) {
+	    String output="";
+	    for (int i = 0; i < outletList.size(); i++) {
+	      output += String.format("%-25d %-25d %-25s \n", outletList.get(i).getOutlet_id(),
+	          outletList.get(i).getNumber_of_staff(),outletList.get(i).getLocation());
+	    }
+	    return output;
+	  }
+	  public static void viewOutlet(ArrayList<Outlet> outletList) {
+	       String output = String.format("%-25s %-25s %-25s \n", "OUTLET ID", "NUMBER OF STAFF",
+	        "LOCATION");
+	     output += retrieveAllOutlet(outletList);  
+	    System.out.println(output);
 	}
 	
 	public static void setHeader(String header) {
