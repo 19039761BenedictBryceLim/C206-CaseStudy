@@ -181,10 +181,19 @@ public class C206_CaseStudy {
 
 					if (option == Add_Customer) {
 						// Add items
+<<<<<<< HEAD
 						customer c = inputCustomer();
 						C206_CaseStudy.addCustomer(customerList, c);
 					
 						
+=======
+						String name = Helper.readString("Enter name > ");
+						int number = Helper.readInt("Enter phone number > ");
+
+						int points = Helper.readInt("Enter points > ");
+
+						customerList.add(new customer(name, number, points));
+>>>>>>> branch 'master' of https://github.com/19039761BenedictBryceLim/T2-C206-CaseStudy.git
 
 					} 
 					else if (option == View_CustomerList) {
@@ -358,7 +367,7 @@ public class C206_CaseStudy {
 
 		for (int i = 0; i < customerList.size(); i++) {
 
-			output += String.format("%d %-10s %-20d  %-20d\n", (i + 1), customerList.get(i).getName(),
+			output += String.format("%d %-10s %-20d  %-20d \n", (i + 1), customerList.get(i).getName(),
 					customerList.get(i).getNumber(), customerList.get(i).getPoints());
 
 		}
