@@ -2,6 +2,9 @@ import java.util.ArrayList;
 
 public class C206_CaseStudy {
 
+	private static final int Delete_Outlet = 3;
+	private static final int View_OutletList = 2;
+	private static final int Add_Outlet = 1;
 	private static final int View_CustomerList = 2;
 	private static final int Delete_Customer = 3;
 	private static final int Exit_Customer = 4;
@@ -143,16 +146,16 @@ public class C206_CaseStudy {
 				while (option != 5) {
 					C206_CaseStudy.outletMenu();
 					option = Helper.readInt("Enter an option > ");
-					if (option == 1) {
+					if (option == Add_Outlet) {
 						String location = Helper.readString("Enter Location > ");
 						int outletID = Helper.readInt("Enter Outlet ID > ");
 						int no_of_staff = Helper.readInt("Enter number of staff > ");
 						outletList.add(new Outlet(location, outletID, no_of_staff));
 					}
-					else if (option == 2) {
+					else if (option == View_OutletList) {
 						C206_CaseStudy.viewOutlet(outletList);
 					}
-					else if (option == 3) {
+					else if (option == Delete_Outlet) {
 						int outletID = Helper.readInt("Enter outletID > ");
 						for (int i = 0; i <outletList.size(); i++) {
 							if (outletID == outletList.get(i).getOutlet_id()) {
