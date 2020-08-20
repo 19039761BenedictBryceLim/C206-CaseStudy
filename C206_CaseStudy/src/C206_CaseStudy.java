@@ -299,13 +299,7 @@ public class C206_CaseStudy {
 		output+= retrieveTransactionList(transactionList);
 		System.out.println(output);
 	}
-	
-	public static void addTransaction(ArrayList<Transaction> transactionList, Transaction t) {
-
-		transactionList.add(t);
-		System.out.println("Transaction added");
-	}
-	
+	//Add Transaction
 	public static Transaction inputTransaction() {
 		int tID = Helper.readInt("Enter Transaction ID > ");
 
@@ -313,6 +307,13 @@ public class C206_CaseStudy {
 		return tr;
 
 	}
+	public static void addTransaction(ArrayList<Transaction> transactionList, Transaction t) {
+		
+		transactionList.add(t);
+		System.out.println("Transaction added");
+	}
+	
+	
 	
 	
 	//Procedure
@@ -330,13 +331,7 @@ public class C206_CaseStudy {
 		System.out.println(output);
 		}
 	
-	
-	public static void addProcedure(ArrayList<Procedure> procedureList, Procedure p) {
-
-		procedureList.add(p);
-		System.out.println("Procedure added");
-	}
-	
+	//Add Procedure
 	public static Procedure inputProcedure() {
 		String p = Helper.readString("Enter new procedure >  ");
 
@@ -344,6 +339,13 @@ public class C206_CaseStudy {
 		return pr;
 
 	}
+	public static void addProcedure(ArrayList<Procedure> procedureList, Procedure p) {
+
+		procedureList.add(p);
+		System.out.println("Procedure added");
+	}
+	
+	
 	
 	
 	//Product
@@ -381,13 +383,7 @@ public class C206_CaseStudy {
 		System.out.println(output);
 
 	}
-	
-	public static void addCustomer(ArrayList<customer> customerList, customer c) {
-
-		customerList.add(c);
-		System.out.println("Customer added");
-	}
-	
+	//Add customer
 	public static customer inputCustomer() {
 		String name = Helper.readString("Enter name> ");
 		int number = Helper.readInt("Enter phone number> ");
@@ -397,6 +393,13 @@ public class C206_CaseStudy {
 		return cc;
 
 	}
+	public static void addCustomer(ArrayList<customer> customerList, customer c) {
+
+		customerList.add(c);
+		System.out.println("Customer added");
+	}
+	
+	
 	
 	//Outlet
 	public static String retrieveAllOutlet(ArrayList<Outlet> outletList) {
@@ -407,13 +410,42 @@ public class C206_CaseStudy {
 	    }
 	    return output;
 	  }
-	  public static void viewOutlet(ArrayList<Outlet> outletList) {
+	public static void viewOutlet(ArrayList<Outlet> outletList) {
 	       String output = String.format("%-25s %-25s %-25s \n", "OUTLET ID", "NUMBER OF STAFF",
 	        "LOCATION");
 	     output += retrieveAllOutlet(outletList);  
 	    System.out.println(output);
 	}
+	 //Add Outlet (Done by: Yufan)
+	public static Outlet inputOutlet() {
+			String location=Helper.readString("Enter location: ");
+			int outlet_id = Helper.readInt("Enter outlet_id: ");
+			int number_of_staff = Helper.readInt ("Enter Number of staff: ");
+			
+			Outlet ou=new Outlet(location, outlet_id, number_of_staff);
+			return ou;
+		}
+	public static void addOutlet(ArrayList<Outlet>outletList,Outlet ou) {
+			outletList.add(ou);
+			System.out.println("Outlet added ");
+		}
+	//Delete Outlet (Done by: Yufan)
+	public static void deleteOutlet(ArrayList<Outlet>outletList) {
+		int outlet_id = Helper.readInt("Enter outlet_id: ");
+		int outpos=-1;
+		for(int i=0;i<outletList.size();i++) {
+			if(outlet_id==outletList.get(i).getOutlet_id()) {
+				outpos=i;
+			}
+			}
+		String yesorno=Helper.readString("You sure u want to delete this outlet? (Yes/No)>");
+		if (yesorno.equalsIgnoreCase("Yes")){
+			outletList.remove(outpos);
+			System.out.println("Outlet has been remove");
+		}
+	}
 	
+	  //Header
 	public static void setHeader(String header) {
 		Helper.line(80, "-");
 		System.out.println(header);
