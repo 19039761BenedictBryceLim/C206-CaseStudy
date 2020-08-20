@@ -6,7 +6,6 @@ public class Transaction {
 	private int transactionID;
 	
 	public Transaction(String CusName, String date, String StaffName, int transactionID) {
-		this.transactionID = transactionID;
 		this.CusName = CusName;
 		this.date = date;
 		this.StaffName = StaffName;
