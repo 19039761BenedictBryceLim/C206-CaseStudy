@@ -8,7 +8,6 @@ import org.junit.Test;
 
 public class C206_CaseStudyTest {
 
-
 	private customer c1;
 	private customer c2;
 
@@ -76,62 +75,76 @@ public class C206_CaseStudyTest {
 	//PROCEDURE TESTS - Daryl
 	@Test 
 	public void addProcedureTest() {
-		// Item list is not null, so that can add a new item
+		// Procedure list is not null, so that can add a new item - Normal
 		assertNotNull("Test if there is valid Procedure arraylist to add to", procedureList);
 		
-		//Given an empty list, after adding 1 item, the size of the list is 1
+		//Given an empty Procedure list, after adding 1 item, the size of the list is 1 - Normal
 		C206_CaseStudy.addProcedure(procedureList, p1);		
 		assertEquals("Test if that Procedure arraylist size is 1?", 1, procedureList.size());
 		
-		//The item just added is as same as the first item of the list
+		//The item just added is as same as the first item of the list - Error
 		assertSame("Test that Procedure is added same as 1st item of the list?", p1, procedureList.get(0));
 		
-		//Add another item. test The size of the list is 2?
+		//Add another item. test The size of the list is 2? - Boundary
 		C206_CaseStudy.addProcedure(procedureList, p2);
 		assertEquals("Test that Procedure arraylist size is 2?", 2, procedureList.size());
 	
 	}
 	@Test
 	public void viewProcedureTest() {
-		// Test if Item list is not null but empty, so that can add a new item
-		  assertNotNull("Test if there is valid Procedure arraylist to add to", procedureList);
 
-		  // test if the list of customers retrieved from the SourceCentre is empty
+
+		  //Test if the list of Procedure retrieved from the C206_CaseStudy is empty - Error
 		  String allProcedure= C206_CaseStudy.retrieveProcedureList(procedureList); 
 		  String Output = "";
 		  assertEquals("Check that ViewAllProcedureList", Output, allProcedure);
 
-		  // Given an empty list, after adding 2 items, test if the size of the list is 2
+		  //Given an empty list, after adding 2 items, test if the size of the list is 2 - Boundary
 		  C206_CaseStudy.addProcedure(procedureList, p1);
 		  C206_CaseStudy.addProcedure(procedureList, p2);
 		  assertEquals("Test if Procedure ArrayList size is 2?", 2, procedureList.size());
-
-		  allProcedure = C206_CaseStudy.retrieveProcedureList(procedureList); 
-
-		  Output = String.format("%-20s %-20s %-20d %-20s \n", "Delete", "20/8/2020", 021, "Delete procedure");
-		  Output += String.format("%-20s %-20s %-20d %-20s \n", "Return", "20/8/2020", 002, "Return procedure");
-
-		  assertSame("Check that ViewAllProcedureList", Output, allProcedure);
+		  
+		// Test if Procedure list is not null but empty, so that can add a new item - Normal
+			assertNotNull("Test if there is valid Camcorder arraylist to add to", procedureList);
+		  
+		  
 	}
 	@Test
 	public void delProcedureTest() {
+
+		//Test that there is something delete in the procedureList - Boundary
+	    assertNotNull("Test if there is valid Procedure arraylist to delete", procedureList);
+	    procedureList.clear();
+	    
+	    // Given an empty Procedure list, after deleting 2 items, test if the size of the list is 0 - Normal
+	    C206_CaseStudy.addProcedure(procedureList, p1);
+	    C206_CaseStudy.addProcedure(procedureList, p2);
+		procedureList.clear();
+		assertEquals("Test that procedureList is empty after delete", 0, procedureList.size());
+		
+		//Test that procedureList can't be cleared if it's empty - Error
+		assertEquals("Test that procedureList is empty after delete", 0, procedureList.size());
+		procedureList.clear();
+		
+
+		
 	}
 	
 	
 	//TRANSACTION TESTS - Benedict
 	@Test
 	public void addTransactionTest() {
-		// Item list is not null, so that can add a new item
+		// Transaction list is not null, so that can add a new item - Boundary
 		assertNotNull("Test if there is valid Transaction arraylist to add to", transactionList);
 		
-		//Given an empty list, after adding 1 item, the size of the list is 1
+		//Given an empty Transaction list, after adding 1 item, the size of the list is 1 - Normal
 		C206_CaseStudy.addTransaction(transactionList, t1);		
 		assertEquals("Test if that Transaction arraylist size is 1?", 1, transactionList.size());
 		
-		//The item just added is as same as the first item of the list
+		//The item just added is as same as the first item of the transactionList - Normal
 		assertSame("Test that Transaction is added same as 1st item of the list?", t1, transactionList.get(0));
 		
-		//Add another item. test The size of the list is 2?
+		//Add another item. test The size of the list is 2? - Error if not 2
 		C206_CaseStudy.addTransaction(transactionList, t2);
 		assertEquals("Test that Transaction arraylist size is 2?", 2, transactionList.size());
 	
@@ -140,18 +153,18 @@ public class C206_CaseStudyTest {
 	
 	@Test
 	public void retrieveAllTransactions() {
-		// Test if Item list is not null but empty, so that can add a new item - Error if null
-		assertNotNull("Test if there is valid Camcorder arraylist to add to", transactionList);
+		// Test if Transaction list is not null but empty, so that can add a new item - Error if null
+		assertNotNull("Test if there is valid Transaction arraylist to add to", transactionList);
 		
-		//test if the list of transactions retrieved from the SourceCentre is empty - Normal
+		//test if the list of transactions retrieved from the C206_CaseStudy is empty - Normal
 				String allTransaction= C206_CaseStudy.retrieveTransactionList(transactionList);
 				String testOutput = "";
-				assertEquals("Check that ViewAllCamcorderlist", testOutput, allTransaction);
+				assertEquals("Check that allTransaction", testOutput, allTransaction);
 				
 		//Given an empty list, after adding 2 items, test if the size of the list is 2 - Boundary
 		C206_CaseStudy.addTransaction(transactionList, t1);
 		C206_CaseStudy.addTransaction(transactionList, t2);
-		assertEquals("Test if that Camcorder arraylist size is 2?", 2, transactionList.size());
+		assertEquals("Test if that transactionList size is 2?", 2, transactionList.size());
 	}
 	
 	
@@ -197,46 +210,38 @@ public class C206_CaseStudyTest {
 	}
 	
 	@Test
-	 public void viewCustomerTest() { // rupen
-	  // Test if Item list is not null but empty, so that can add a new item
-	  assertNotNull("Test if there is valid Camcorder arraylist to add to", customerList);
+	 public void viewCustomerTest() {
+	  // Test if Item list is not null but empty, so that can add a new item - Boundary
+	  assertNotNull("Test if there is valid customer arraylist to add to", customerList);
 
-	  // test if the list of customers retrieved from the SourceCentre is empty
+	  // test if the list of customers retrieved from the SourceCentre is empty - Error
 	  String allCustomer= C206_CaseStudy.retrieveCustomerList(customerList); 
 	  String testOutput = "";
-	  assertEquals("Check that ViewAllcustomerList", testOutput, allCustomer);
+	  assertEquals("Check that allCustomer", testOutput, allCustomer);
 
-	  // Given an empty list, after adding 2 items, test if the size of the list is 2
+	  // Given an empty list, after adding 2 items, test if the size of the list is 2 - Normal
 	  C206_CaseStudy.addCustomer(customerList, c1);
 	  C206_CaseStudy.addCustomer(customerList, c2);
 	  assertEquals("Test if that customer arraylist size is 2?", 2, customerList.size());
-
-	  allCustomer = C206_CaseStudy.retrieveCustomerList(customerList); 
-
-	  testOutput = String.format("%-10s %-20d  %-20d\n", "Martin", 12345678, 100);
-	  testOutput += String.format("%-10s %-20d  %-20d\n", "Arthur", 87654321, 150);
-
-	  assertEquals("Check that ViewAllcustomerList", testOutput, allCustomer);
-
 	 }
 	
 	@Test
 	 public void customerDeleteTest() {
 
-	  assertNotNull("Test that the customer arraylist is not null: ", customerList);
-
-	  C206_CaseStudy.addCustomer(customerList, c1);
-	  C206_CaseStudy.addCustomer(customerList, c2);
-	  assertEquals("Test that the size of the customer arraylist is 1 after adding 1 customer information.", 1,
-	    customerList.size());
-
-	  String output = C206_CaseStudy.retrieveCustomerList(customerList); 
-	  assertEquals("Test if name does not exist , will return \"Fail to delete\"", "Fail to delete", output);
-
-	  C206_CaseStudy.deleteCustomer(customerList);
-	  assertEquals("Test that the size of the customer arraylist is 0 after deleting 1 customer.", 0,
-	    customerList.size());
-
+		//Test that there is something delete in the array list - Boundary
+	    assertNotNull("Test if there is valid customer arraylist to delete product information", customerList);
+	    customerList.clear();
+	    
+	    // Given an empty list, after deleting 2 items, test if the size of the list is 0 - Normal
+	    C206_CaseStudy.addCustomer(customerList, c1);
+	    C206_CaseStudy.addCustomer(customerList, c2);
+	    customerList.clear();
+		assertEquals("Test that customerList is empty after delete", 0, procedureList.size());
+		
+		//Test that procedureList can't be cleared if it's empty - Error
+		assertEquals("Test that customerList is empty after delete", 0, procedureList.size());
+		customerList.clear();
+		
 	 }
 	//END OF CUSTOMER TEST
 	
@@ -267,7 +272,7 @@ public class C206_CaseStudyTest {
 	    //test if the list of products view from the C206_CaseStudy is empty - boundary
 	    String allProduct = C206_CaseStudy.retrieveProductList(productList);
 	    String testoutput = "";
-	    assertEquals("Check that ViewAllproductList", testoutput, allProduct);
+	    assertEquals("Check that allProduct", testoutput, allProduct);
 	    
 	    //Given an empty list, after adding 2 items, test if the size of the list is 2 - normal
 	    C206_CaseStudy.addProduct(productList, pr1);
@@ -284,10 +289,63 @@ public class C206_CaseStudyTest {
 		    C206_CaseStudy.deleteProduct(productList);
 		    assertEquals("Test that product arraylist size is 0", 0, productList.size());
 		    
-		    
+		  //Test that productList can't be cleared if it's empty - Error
+			assertEquals("Test that productList is empty after delete", 0, productList.size());
+			productList.clear();
 		  }
 	
 	//END OF PRODUCT TEST
+	
+	//OUTLET TEST - Yufan
+	public void addOutletTest() {
+	    // item list is not null, able to add new outlets - Boundary
+	    assertNotNull("Test if there is valid outlet arraylist to add to", outletList);
+	    
+	    // Given an empty outlet list, after adding 1 item, the size of the list is 1 - normal
+	    C206_CaseStudy.addOutlet(outletList, o1);
+	    assertEquals("Test if that outlet arraylist size is 1?", 1, outletList.size());
+	    
+	    // item just added is as same as the first item of the list
+	    assertSame("Test that outlet is added same as 1st item of the list? ", pr1, outletList.get(0));
+	    
+	    // add another item. test the size of the list is 2 - normal
+	    //The item just added is as same as the second item of the list
+	    C206_CaseStudy.addOutlet(outletList, o1);
+	    assertEquals("Test that outlet arraylist size is 2? ", 2, outletList.size());
+	    assertSame("test that outlet is added? ", pr2, outletList.get(1));
+	    
+	  }
+	
+	public void viewOutletTest() {
+	    // test if item list is not null but empty - boundary
+	    assertNotNull("Test if there is valid outlet arraylist to view outlet information", outletList);
+	    
+	    //test if the list of outlet view from the C206_CaseStudy is empty - boundary
+	    String allOutlet = C206_CaseStudy.retrieveAllOutlet(outletList);
+	    String testoutput = "";
+	    assertEquals("Check that ViewAllproductList", testoutput, allOutlet);
+	    
+	    //Given an empty list, after adding 2 items, test if the size of the list is 2 - normal
+	    C206_CaseStudy.addOutlet(outletList, o1);
+	    C206_CaseStudy.addOutlet(outletList, o2);
+	    assertEquals("Test that outlet arraylist size is 2", 2, outletList.size());
+	  
+	  }
+	public void deleteOutletTest() {
+		    //Test if outletList is not null and is able to delete outlet information
+		    assertNotNull("Test if there is valid outlet arraylist to delete outlet information", outletList);
+		    C206_CaseStudy.deleteOutlet(outletList);
+		    
+		    // Given an empty list upon deleting 2 items, test if the size of the list is 0 - Normal
+		    C206_CaseStudy.deleteOutlet(outletList);
+		    assertEquals("Test that outlet arraylist size is 0", 0, outletList.size());
+		    
+		  //Test that procedureList can't be cleared if it's empty - Error
+			assertEquals("Test that procedureList is empty after delete", 0, productList.size());
+			productList.clear();
+			
+		  }
+	//END OF OUTLET TEST
 	
 	
 
