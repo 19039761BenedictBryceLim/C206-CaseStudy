@@ -474,8 +474,6 @@ public class C206_CaseStudy {
 	public static Outlet inputOutlet() {
 
 		String location = Helper.readString("Enter location: ");
-
-		String location = Helper.readString("Enter location: ");
 		int outlet_id = Helper.readInt("Enter outlet_id: ");
 		int number_of_staff = Helper.readInt("Enter Number of staff: ");
 
@@ -500,52 +498,17 @@ public class C206_CaseStudy {
 
 	public static int LocateOutlet(ArrayList<Outlet> outletList) {
 
->>>>>>> branch 'master' of https://github.com/19039761BenedictBryceLim/T2-C206-CaseStudy.git
 		int outlet_id = Helper.readInt("Enter outlet_id: ");
-		int number_of_staff = Helper.readInt("Enter Number of staff: ");
-
-		Outlet ou = new Outlet(location, outlet_id, number_of_staff);
-		return ou;
-	}
-
-	public static void addOutlet(ArrayList<Outlet> outletList, Outlet ou) {
-		outletList.add(ou);
-		System.out.println("Outlet added ");
-	}
-
-	// Delete Outlet (Done by: Yufan)
-	public static void deleteOutlet(ArrayList<Outlet> outletList) {
-
-		int outpos = LocateOutlet(outletList);
-		String yesorno = Helper.readString("You sure u want to delete this outlet? (Yes/No)>");
-		if (yesorno.equalsIgnoreCase("Yes")) {
-			outletList.remove(outpos);
-			System.out.println("Outlet has been remove");
-		}
-	}
-
-	public static int LocateOutlet(ArrayList<Outlet> outletList) {
-
-		int outpos = locateoutlet(outletList);
-		String yesorno = Helper.readString("You sure u want to delete this outlet? (Yes/No)>");
-		if (yesorno.equalsIgnoreCase("Yes")) {
-			outletList.remove(outpos);
-			System.out.println("Outlet has been remove");
-		}
-		return outpos;
-	}
-
-	public static int locateoutlet(ArrayList<Outlet> outletList) {
-
-		int outlet_id = Helper.readInt("Enter outlet_id: ");
-		int outpos = -1;
-		for (int i = 0; i < outletList.size(); i++) {
-			if (outlet_id == outletList.get(i).getOutlet_id()) {
-				outpos = i;
+		int outpos=-1;
+		for(int i=0;i<outletList.size();i++) {
+			if(outlet_id==outletList.get(i).getOutlet_id()) {
+				outpos=i;
 			}
-		}
+			}
 		return outpos;
 	}
+
+
 
 	// Header
 	public static void setHeader(String header) {
