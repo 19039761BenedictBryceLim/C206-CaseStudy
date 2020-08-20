@@ -47,20 +47,20 @@ public class C206_CaseStudyTest {
 				customerList= new ArrayList<customer>();
 				
 				//ProcedureName
-				p1 = new Procedure("Delete");
-				p2 = new Procedure("Return");
+				p1 = new Procedure("Delete", "20/8/2020", 001, "Delete procedure");
+				p2 = new Procedure("Return", "20/8/2020", 002, "Return procedure");
 				
 				procedureList= new ArrayList<Procedure>();
 				
 				//TransactionID
-				t1 = new Transaction(9100);
-				t2 = new Transaction(9200);
+				t1 = new Transaction("Melvin", "20/8/2020", "Joe", 9100);
+				t2 = new Transaction("John", "20/8/2020", "Joe", 9200);
 				
 				transactionList= new ArrayList<Transaction>();
 				
 				//productID, description, category, supplierName
-				pr1= new product(001, "Item 1", "Category 1", "Marcus");
-				pr2= new product(001, "Item 2", "Category 2", "George");
+				pr1= new product(001, "Item 1", "Category 1", "James", 13);
+				pr2= new product(002, "Item 2", "Category 2", "George", 15);
 				
 				productList= new ArrayList<product>();
 				
@@ -72,7 +72,8 @@ public class C206_CaseStudyTest {
 				
 	}
 	
-	@Test
+	//PROCEDURE TESTS - Daryl
+	@Test 
 	public void addProcedureTest() {
 		// Item list is not null, so that can add a new item
 		assertNotNull("Test if there is valid Procedure arraylist to add to", procedureList);
@@ -89,7 +90,12 @@ public class C206_CaseStudyTest {
 		assertEquals("Test that Procedure arraylist size is 2?", 2, procedureList.size());
 	
 	}
+	public void delProcedureTest() {
+		
+	}
 	
+	
+	//TRANSACTION TESTS - Benedict
 	@Test
 	public void addTransactionTest() {
 		// Item list is not null, so that can add a new item
@@ -109,7 +115,26 @@ public class C206_CaseStudyTest {
 	}
 	
 	
+	@Test
+	public void retrieveAllTransactions() {
+		// Test if Item list is not null but empty, so that can add a new item - Error if null
+		assertNotNull("Test if there is valid Camcorder arraylist to add to", transactionList);
+		
+		//test if the list of camcorders retrieved from the SourceCentre is empty - Normal
+				String allTransaction= C206_CaseStudy.retrieveTransactionList(transactionList);
+				String testOutput = "";
+				assertEquals("Check that ViewAllCamcorderlist", testOutput, allTransaction);
+				
+		//Given an empty list, after adding 2 items, test if the size of the list is 2 - Boundary
+		C206_CaseStudy.addTransaction(transactionList, t1);
+		C206_CaseStudy.addTransaction(transactionList, t2);
+		assertEquals("Test if that Camcorder arraylist size is 2?", 2, transactionList.size());
+	}
 	
+	
+	
+	
+	//CUSTOMER TESTS - Rupen
 	@Test
 	public void addCustomerTest() {
 		// Item list is not null, so that can add a new item
@@ -129,6 +154,27 @@ public class C206_CaseStudyTest {
 	}
 	
 	
+	
+	
+	//PRODUCT TESTS - Boon Ying
+	public void addProductTest() {
+	    // item list is not null, so can add new product information - boundary
+	    assertNotNull("Test if there is valid product arraylist to add to", productList);
+	    
+	    // Given an empty list, after adding 1 item, the size of the list is 1 - normal
+	    C206_CaseStudy.addProduct(productList, pr1);
+	    assertEquals("Test if that product arraylist size is 1?", 1, productList.size());
+	    
+	    // item just added is as same as the first item of the list
+	    assertSame("Test that product is added same as 1st item of the list? ", pr1, productList.get(0));
+	    
+	    // add another item. test the size of the list is 2 - normal
+	    //The item just added is as same as the second item of the list
+	    C206_CaseStudy.addProduct(productList, pr1);
+	    assertEquals("Test that product arraylist size is 2? ", 2, productList.size());
+	    assertSame("test that product is added? ", pr2, productList.get(1));
+	    
+	  }
 	
 	
 	

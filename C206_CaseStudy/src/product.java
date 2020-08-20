@@ -4,9 +4,9 @@ public class product {
 	private String description;
 	private String category;
 	private String supplierName;
-	private int price;
+	private double price;
 	
-	public product(int productID, String description, String category, String supplierName, int price) {
+	public product(int productID, String description, String category, String supplierName, double price) {
 		this.productID = productID;
 		this.description = description;
 		this.category = category;
@@ -15,7 +15,7 @@ public class product {
 		
 	}
 	
-	public int getPrice() {
+	public double getPrice() {
 		return price;
 	}
 

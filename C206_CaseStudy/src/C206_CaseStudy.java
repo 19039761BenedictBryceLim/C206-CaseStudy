@@ -300,7 +300,7 @@ public class C206_CaseStudy {
 		System.out.println(output);
 		}
 	
-	//Add Procedure
+	//Add Procedure Done by Daryl
 	public static Procedure inputProcedure() {
 		String p = Helper.readString("Enter new procedure >  ");
 		String date = Helper.readString("Enter date created (DD/MM/YYYY) > ");
@@ -316,7 +316,7 @@ public class C206_CaseStudy {
 		procedureList.add(p);
 		System.out.println("Procedure added");
 	}
-	//Delete Procedure
+	//Delete Procedure Done by Daryl
 	public static void delProcedure(ArrayList<Procedure> procedureList) {
 		int procedure = Helper.readInt("Enter procedure ID > ");
 		int pos = -1;
@@ -353,7 +353,7 @@ public class C206_CaseStudy {
 	    String description = Helper.readString("Enter description > ");
 	    String category = Helper.readString("Enter category (Food/Beauty) > ");
 	    String Supplier = Helper.readString("Enter supplier name > ");
-	    int price = Helper.readInt("Enter price > $");
+	    double price = Helper.readDouble("Enter price > $");
 	    
 	    product pp = new product(ProductID, description, category, Supplier, price);
 	    return pp;
@@ -470,6 +470,7 @@ public class C206_CaseStudy {
 		}
 	//Delete Outlet (Done by: Yufan)
 	public static void deleteOutlet(ArrayList<Outlet>outletList) {
+<<<<<<< HEAD
 		int outpos = LocateOutlet(outletList);
 		String yesorno=Helper.readString("You sure u want to delete this outlet? (Yes/No)>");
 		if (yesorno.equalsIgnoreCase("Yes")){
@@ -478,6 +479,16 @@ public class C206_CaseStudy {
 		}
 	}
 	public static int LocateOutlet(ArrayList<Outlet> outletList) {
+=======
+		int outpos = locateoutlet(outletList);
+		String yesorno=Helper.readString("You sure u want to delete this outlet? (Yes/No)>");
+		if (yesorno.equalsIgnoreCase("Yes")){
+			outletList.remove(outpos);
+			System.out.println("Outlet has been remove");
+		}
+	}
+	public static int locateoutlet(ArrayList<Outlet> outletList) {
+>>>>>>> branch 'master' of https://github.com/19039761BenedictBryceLim/T2-C206-CaseStudy.git
 		int outlet_id = Helper.readInt("Enter outlet_id: ");
 		int outpos=-1;
 		for(int i=0;i<outletList.size();i++) {
@@ -493,6 +504,7 @@ public class C206_CaseStudy {
 		Helper.line(80, "-");
 		System.out.println(header);
 		Helper.line(80, "-");
+		
 	}
 
 }
