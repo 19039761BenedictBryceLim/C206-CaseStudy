@@ -462,6 +462,14 @@ public class C206_CaseStudy {
 		}
 	//Delete Outlet (Done by: Yufan)
 	public static void deleteOutlet(ArrayList<Outlet>outletList) {
+		int outpos = locateoutlet(outletList);
+		String yesorno=Helper.readString("You sure u want to delete this outlet? (Yes/No)>");
+		if (yesorno.equalsIgnoreCase("Yes")){
+			outletList.remove(outpos);
+			System.out.println("Outlet has been remove");
+		}
+	}
+	public static int locateoutlet(ArrayList<Outlet> outletList) {
 		int outlet_id = Helper.readInt("Enter outlet_id: ");
 		int outpos=-1;
 		for(int i=0;i<outletList.size();i++) {
@@ -469,11 +477,7 @@ public class C206_CaseStudy {
 				outpos=i;
 			}
 			}
-		String yesorno=Helper.readString("You sure u want to delete this outlet? (Yes/No)>");
-		if (yesorno.equalsIgnoreCase("Yes")){
-			outletList.remove(outpos);
-			System.out.println("Outlet has been remove");
-		}
+		return outpos;
 	}
 	
 	  //Header
