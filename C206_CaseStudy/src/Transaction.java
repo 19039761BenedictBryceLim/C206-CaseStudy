@@ -7,7 +7,9 @@ public class Transaction {
 	
 	public Transaction(String CusName, String date, String StaffName, int transactionID) {
 		this.transactionID = transactionID;
-		
+		this.date = date;
+		this.StaffName = StaffName;
+		this.transactionID = transactionID;
 	}
 	public String getCusName() {
 		return CusName;
