@@ -36,14 +36,14 @@ public class C206_CaseStudy {
 		ArrayList<product> productList = new ArrayList<product>();
 		ArrayList<Outlet> outletList = new ArrayList<Outlet>();
 		
-		procedureList.add(new Procedure("Return"));
-		procedureList.add(new Procedure("Exchange"));
+		procedureList.add(new Procedure("Return", "06/08/2020", 01, "return products" ));
+		procedureList.add(new Procedure("Exchange", "07/08/2020", 02, "exchange products"));
 		
 		int option = 0;
 		while (option != 6) {
 			C206_CaseStudy.menu();
 			option = Helper.readInt("Enter an option > ");
-			if (option == Transaction_option) {
+			if (option == Transaction_option) { //Benedict
 				option = 0;
 				while (option != 5) {
 					C206_CaseStudy.transactionMenu();
@@ -140,7 +140,7 @@ public class C206_CaseStudy {
 					}
 				}
 			}
-			else if (option == Customer_Option) {
+			else if (option == Customer_Option) { //Rupen
 				option = 0;
 				while (option != 5) {
 					C206_CaseStudy.customerMenu();
@@ -158,15 +158,7 @@ public class C206_CaseStudy {
 					}
 
 					else if (option == Delete_Customer) {
-						String name = Helper.readString("Enter name> ");
-						for (int i = 0; i < customerList.size(); i++) {
-							if(name==customerList.get(i).getName()) {
-								customerList.remove(i).getName();
-							}
-							else {
-								System.out.println("Does not exist");
-							}
-						}
+						C206_CaseStudy.deleteCustomer(customerList);
 					} else if (option == Exit_Customer) {
 						System.out.println("Bye!");
 					} else {
@@ -246,21 +238,24 @@ public class C206_CaseStudy {
 	public static String retrieveTransactionList (ArrayList<Transaction> transactionList) {
 		String output = "";
 		for (int i = 0; i <transactionList.size(); i++) {
-			output += String.format("%d %-10d\n", (i+1), transactionList.get(i).getTransactionID());
+			output += String.format("%d %-25s %-25s %-25s %-25d\n", (i+1), transactionList.get(i).getCusName(), transactionList.get(i).getDate(), transactionList.get(i).getStaffName(),transactionList.get(i).getTransactionID());
 		}
 		return output;
 	}
 	public static void viewTransactionList(ArrayList<Transaction> transactionList) {
 		C206_CaseStudy.setHeader("TRANSACTION LIST");
-		String output = String.format("%s %-10s \n","No.", "ID");
+		String output = String.format("%s %-25s %-25s %-25s %-25s \n","No.", "Customer Name", "Date", "Staff Name", "ID");
 		output+= retrieveTransactionList(transactionList);
 		System.out.println(output);
 	}
 	//Add Transaction
 	public static Transaction inputTransaction() {
+		String CN = Helper.readString("Enter Customer Name > ");
+		String date = Helper.readString("Enter date > ");
+		String SN = Helper.readString("Enter Staff Name > ");
 		int tID = Helper.readInt("Enter Transaction ID > ");
 
-		Transaction tr = new Transaction(tID);
+		Transaction tr = new Transaction(CN, date, SN, tID);
 		return tr;
 
 	}
@@ -282,7 +277,7 @@ public class C206_CaseStudy {
 		}
 		String confirmation = Helper.readString("Confirm archive? (Yes/No) >");
 		if (confirmation.equalsIgnoreCase("Yes")) {
-			archiveList.add(new Transaction(transactionList.get(pos).getTransactionID()));
+			archiveList.add(new Transaction(transactionList.get(pos).getCusName(),transactionList.get(pos).getDate(),transactionList.get(pos).getStaffName(),transactionList.get(pos).getTransactionID()));
 			transactionList.remove(pos);
 			System.out.println("Successfully archived.");
 		}
@@ -308,8 +303,11 @@ public class C206_CaseStudy {
 	//Add Procedure
 	public static Procedure inputProcedure() {
 		String p = Helper.readString("Enter new procedure >  ");
+		String date = Helper.readString("Enter date created (DD/MM/YYYY) > ");
+		int procID = Helper.readInt("Enter Procedure ID > ");
+		String description = Helper.readString("Enter description > ");
 
-		Procedure pr = new Procedure(p);
+		Procedure pr = new Procedure(p, date, procID, description);
 		return pr;
 
 	}
@@ -320,10 +318,10 @@ public class C206_CaseStudy {
 	}
 	//Delete Procedure
 	public static void delProcedure(ArrayList<Procedure> procedureList) {
-		String procedure = Helper.readString("Enter procedure > ");
+		int procedure = Helper.readInt("Enter procedure ID > ");
 		int pos = -1;
 		for (int i = 0; i < procedureList.size(); i++) {
-			if (procedure==procedureList.get(i).getProcedure()) {
+			if (procedure==procedureList.get(i).getProcedureID()) {
 				pos = i;
 			}
 			String confirmation = Helper.readString("Confirm Delete (Yes/No) >");
@@ -339,13 +337,13 @@ public class C206_CaseStudy {
 	public static String retrieveProductList (ArrayList<product> productList) {
 		String output = " ";
 		for (int i = 0; i < productList.size(); i++) {
-			output += String.format("%d %-20d %-20s %-20s %-20s", (i+1), productList.get(i).getProductID(), productList.get(i).getDescription(), productList.get(i).getCategory(), productList.get(i).getSupplierName());
+			output += String.format("%d %-20d %-20s %-20s %-20s $%-20.2f", (i+1), productList.get(i).getProductID(), productList.get(i).getDescription(), productList.get(i).getCategory(), productList.get(i).getSupplierName(), productList.get(i).getPrice());
 		}
 		return output;
 	}
 	public static void viewProductList(ArrayList<product> productList) {
 		C206_CaseStudy.setHeader("PRODUCT LisT");
-		String output = String.format("%s %-20s", "No.", "ID");
+		String output = String.format("%s %-20s", "No.", "ID", "Description", "Category", "Supplier Name", "Price");
 		output += retrieveProductList(productList);
 		System.out.println(output);
 	}
@@ -355,8 +353,9 @@ public class C206_CaseStudy {
 	    String description = Helper.readString("Enter description > ");
 	    String category = Helper.readString("Enter category (Food/Beauty) > ");
 	    String Supplier = Helper.readString("Enter supplier name > ");
+	    int price = Helper.readInt("Enter price > $");
 	    
-	    product pp = new product(ProductID, description, category, Supplier);
+	    product pp = new product(ProductID, description, category, Supplier, price);
 	    return pp;
 	  }
 	  public static void addProduct(ArrayList<product>productList,product pp) {
@@ -415,7 +414,22 @@ public class C206_CaseStudy {
 		customerList.add(c);
 		System.out.println("Customer added");
 	}
-	
+	//Delete Customer (Done by Rupen)
+	public static void deleteCustomer(ArrayList<customer> customerList) {
+		//rupen
+		  String name = Helper.readString("Enter name> ");
+		  int customerpos = -1;
+		  for (int i = 0; i < customerList.size(); i++) {
+		   if (name == customerList.get(i).getName()) {
+		    customerpos = i;
+		   }
+		  }
+		  String deletecustomer = Helper.readString("Do you want to delete this customer information? > ");
+		  if (deletecustomer.equalsIgnoreCase("Yes")) {
+		   customerList.remove(customerpos);
+		   System.out.println("Customer information has been removed");
+		  }
+		 }
 	
 	
 	//Outlet (Done by Yufan)

@@ -4,15 +4,21 @@ public class product {
 	private String description;
 	private String category;
 	private String supplierName;
+	private int price;
 	
-	public product(int productID, String description, String category, String supplierName) {
+	public product(int productID, String description, String category, String supplierName, int price) {
 		this.productID = productID;
 		this.description = description;
 		this.category = category;
 		this.supplierName = supplierName;
+		this.price = price;
 		
 	}
 	
+	public int getPrice() {
+		return price;
+	}
+
 	public String toString() {
 		return String.format("%-10d %-30s %-10s %-10s", productID, description, description, supplierName);
 	}
