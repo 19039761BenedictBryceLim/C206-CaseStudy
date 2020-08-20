@@ -445,7 +445,7 @@ public class C206_CaseStudy {
 		return customerpos;
 	}
 
-	public static void editpoints(ArrayList<customer> customerList) {
+	public static void editpoints(ArrayList<customer> customerList) {//rupen
 		int customerpos = LocateCustomer(customerList);
 		int edit_points = Helper.readInt("What is the updated points? >");
 		customerList.get(customerpos).setPoints(edit_points);
