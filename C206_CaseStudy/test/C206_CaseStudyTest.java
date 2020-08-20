@@ -27,6 +27,7 @@ public class C206_CaseStudyTest {
 	ArrayList<customer> customerList;
 	ArrayList<Procedure> procedureList;
 	ArrayList<Transaction> transactionList; 
+	ArrayList<Transaction> archiveList; 
 	ArrayList<product> productList;
 	ArrayList<Outlet> outletList;
 
@@ -58,9 +59,9 @@ public class C206_CaseStudyTest {
 				
 				transactionList= new ArrayList<Transaction>();
 				
-				//productID, description, category, supplierName
-				pr1= new product(001, "Item 1", "Category 1", "James", 13);
-				pr2= new product(002, "Item 2", "Category 2", "George", 15);
+				//productID, description, category, supplierName, price
+		        pr1= new product(001, "cleanser", "beauty", "Marcus", 40);
+		        pr2= new product(002, "toner", "beauty", "George", 30);
 				
 				productList= new ArrayList<product>();
 				
@@ -120,7 +121,7 @@ public class C206_CaseStudyTest {
 		// Test if Item list is not null but empty, so that can add a new item - Error if null
 		assertNotNull("Test if there is valid Camcorder arraylist to add to", transactionList);
 		
-		//test if the list of camcorders retrieved from the SourceCentre is empty - Normal
+		//test if the list of transactions retrieved from the SourceCentre is empty - Normal
 				String allTransaction= C206_CaseStudy.retrieveTransactionList(transactionList);
 				String testOutput = "";
 				assertEquals("Check that ViewAllCamcorderlist", testOutput, allTransaction);
@@ -132,7 +133,27 @@ public class C206_CaseStudyTest {
 	}
 	
 	
+
+	public void archiveTransactionTest() {
+		
+		//Test archiveList is empty - Normal
+		assertEquals("Test if archiveList is empty", 0, archiveList.size());
+		
+		//Test archiveList can receive details from transactionList after archiving. - Normal
+		C206_CaseStudy.addTransaction(transactionList, t1);	
+		int pos = 0;
+		archiveList.add(new Transaction(transactionList.get(0).getCusName(),transactionList.get(pos).getDate(),transactionList.get(pos).getStaffName(),transactionList.get(pos).getTransactionID()));
+		transactionList.remove(pos);
+		assertEquals("Test if archiveList received information from transactionList", 1, archiveList.size());
+		
+		//Test - Error, after archiving an old transaction, transactionList should not include the old transaction);
+	    C206_CaseStudy.archiveTransaction(transactionList);
+	    assertEquals("Test if transaction arraylist still consists the old transaction", 0, transactionList);
+	    
+	    
+	}
 	
+	//END OF TRANSACTION TEST
 	
 	//CUSTOMER TESTS - Rupen
 	@Test
@@ -153,8 +174,49 @@ public class C206_CaseStudyTest {
 	
 	}
 	
+	@Test
+	 public void viewCustomerTest() { // rupen
+	  // Test if Item list is not null but empty, so that can add a new item
+	  assertNotNull("Test if there is valid Camcorder arraylist to add to", customerList);
+
+	  // test if the list of customers retrieved from the SourceCentre is empty
+	  String allCustomer= C206_CaseStudy.retrieveCustomerList(customerList); 
+	  String testOutput = "";
+	  assertEquals("Check that ViewAllcustomerList", testOutput, allCustomer);
+
+	  // Given an empty list, after adding 2 items, test if the size of the list is 2
+	  C206_CaseStudy.addCustomer(customerList, c1);
+	  C206_CaseStudy.addCustomer(customerList, c2);
+	  assertEquals("Test if that customer arraylist size is 2?", 2, customerList.size());
+
+	  allCustomer = C206_CaseStudy.retrieveCustomerList(customerList); 
+
+	  testOutput = String.format("%-10s %-20d  %-20d\n", "Martin", 12345678, 100);
+	  testOutput += String.format("%-10s %-20d  %-20d\n", "Arthur", 87654321, 150);
+
+	  assertEquals("Check that ViewAllcustomerList", testOutput, allCustomer);
+
+	 }
 	
-	
+	@Test
+	 public void customerDeleteTest() {
+
+	  assertNotNull("Test that the customer arraylist is not null: ", customerList);
+
+	  C206_CaseStudy.addCustomer(customerList, c1);
+	  C206_CaseStudy.addCustomer(customerList, c2);
+	  assertEquals("Test that the size of the customer arraylist is 1 after adding 1 customer information.", 1,
+	    customerList.size());
+
+	  String output = C206_CaseStudy.retrieveCustomerList(customerList); 
+	  assertEquals("Test if name does not exist , will return \"Fail to delete\"", "Fail to delete", output);
+
+	  C206_CaseStudy.deleteCustomer(customerList);
+	  assertEquals("Test that the size of the customer arraylist is 0 after deleting 1 customer.", 0,
+	    customerList.size());
+
+	 }
+	//END OF CUSTOMER TEST
 	
 	//PRODUCT TESTS - Boon Ying
 	public void addProductTest() {
@@ -176,9 +238,34 @@ public class C206_CaseStudyTest {
 	    
 	  }
 	
+	public void viewProductTest() {
+	    // test if item list is not null but empty - boundary
+	    assertNotNull("Test if there is valid product arraylist to view product information", productList);
+	    
+	    //test if the list of products view from the C206_CaseStudy is empty - boundary
+	    String allProduct = C206_CaseStudy.retrieveProductList(productList);
+	    String testoutput = "";
+	    assertEquals("Check that ViewAllproductList", testoutput, allProduct);
+	    
+	    //Given an empty list, after adding 2 items, test if the size of the list is 2 - normal
+	    C206_CaseStudy.addProduct(productList, pr1);
+	    C206_CaseStudy.addProduct(productList, pr2);
+	    assertEquals("Test that product arraylist size is 2", 2, productList.size());
+	  
+	  }
+	public void deleteProductTest() {
+		    //boundary 
+		    assertNotNull("Test if there is valid product arraylist to delete product information", productList);
+		    C206_CaseStudy.deleteProduct(productList);
+		    
+		    // Given an empty list, after deleting 2 items, test if the size of the list is 0 - normal
+		    C206_CaseStudy.deleteProduct(productList);
+		    assertEquals("Test that product arraylist size is 0", 0, productList.size());
+		    
+		    
+		  }
 	
-	
-	
+	//END OF PRODUCT TEST
 	
 	
 
