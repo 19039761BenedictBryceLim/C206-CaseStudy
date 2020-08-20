@@ -485,6 +485,7 @@ public class C206_CaseStudy {
 		Helper.line(80, "-");
 		System.out.println(header);
 		Helper.line(80, "-");
+		
 	}
 
 }
