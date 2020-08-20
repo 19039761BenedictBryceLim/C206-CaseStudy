@@ -33,7 +33,6 @@ public class C206_CaseStudy {
 		ArrayList<customer> customerList = new ArrayList<customer>();
 		ArrayList<Procedure> procedureList = new ArrayList<Procedure>();
 		ArrayList<Transaction> transactionList = new ArrayList<Transaction>();
-		ArrayList<Transaction> archiveList = new ArrayList<Transaction>();
 		ArrayList<product> productList = new ArrayList<product>();
 		ArrayList<Outlet> outletList = new ArrayList<Outlet>();
 		
@@ -59,16 +58,7 @@ public class C206_CaseStudy {
 						C206_CaseStudy.viewTransactionList(transactionList);
 					}
 					else if (option == Archive_Transaction) {
-						int ID = Helper.readInt("Enter Transaction ID > ");
-						for (int i = 0; i < transactionList.size(); i++) {
-							if (ID == transactionList.get(i).getTransactionID()) {
-								archiveList.add(new Transaction(ID));
-								transactionList.remove(i);
-							}
-							else {
-								System.out.println("Does not exist.");
-							}
-						}
+						C206_CaseStudy.archiveTransaction(transactionList);
 					}
 					else if (option == Exit_Transaction) {
 						System.out.println("Bye!");
@@ -312,7 +302,27 @@ public class C206_CaseStudy {
 		transactionList.add(t);
 		System.out.println("Transaction added");
 	}
-	
+	//Archive Transaction
+	public static void archiveTransaction(ArrayList<Transaction>transactionList) {
+	int ID = Helper.readInt("Enter Transaction ID > ");
+	int pos = -1;
+	ArrayList<Transaction> archiveList = new ArrayList<Transaction>();
+	for (int i = 0; i < transactionList.size(); i++) {
+		if (ID == transactionList.get(i).getTransactionID()) {
+			pos = i;
+			
+			}
+		else {
+			System.out.println("Does not exist");
+		}
+		}
+		String confirmation = Helper.readString("Confirm archive? (Yes/No) >");
+		if (confirmation.equalsIgnoreCase("Yes")) {
+			archiveList.add(new Transaction(transactionList.get(pos).getTransactionID()));
+			transactionList.remove(pos);
+			System.out.println("Successfully archived.");
+		}
+	}
 	
 	
 	
@@ -344,6 +354,7 @@ public class C206_CaseStudy {
 		procedureList.add(p);
 		System.out.println("Procedure added");
 	}
+	//Delete Procedure
 	
 	
 	
