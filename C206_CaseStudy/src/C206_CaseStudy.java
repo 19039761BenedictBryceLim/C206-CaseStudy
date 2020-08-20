@@ -365,19 +365,23 @@ public class C206_CaseStudy {
 
 	  // delete product (Done by boonying)
 	  public static void deleteProduct(ArrayList<product>productList) {
-	    int ProductID = Helper.readInt("Enter new product ID > ");
-	    int productpos=-1;
-	    for(int i=0;i<productList.size();i++) {
-	      if(ProductID==productList.get(i).getProductID()) {
-	        productpos=i;
-	      }
-	    }
+	    int productpos = LocateProduct(productList);
 	    String deleteproduct = Helper.readString("Do you want to delete this product information? > ");
 	    if (deleteproduct.equalsIgnoreCase("Yes")) {
 	      productList.remove(productpos);
 	      System.out.println("Product information has been removed");
 	    }
 	  }
+	public static int LocateProduct(ArrayList<product> productList) {
+		int ProductID = Helper.readInt("Enter new product ID > ");
+	    int productpos=-1;
+	    for(int i=0;i<productList.size();i++) {
+	      if(ProductID==productList.get(i).getProductID()) {
+	        productpos=i;
+	      }
+	    }
+		return productpos;
+	}
 	
 	//Customer (Done by Rupen)
 	public static String retrieveCustomerList(ArrayList<customer> customerList) {
@@ -417,19 +421,23 @@ public class C206_CaseStudy {
 	//Delete Customer (Done by Rupen)
 	public static void deleteCustomer(ArrayList<customer> customerList) {
 		//rupen
-		  String name = Helper.readString("Enter name> ");
-		  int customerpos = -1;
-		  for (int i = 0; i < customerList.size(); i++) {
-		   if (name == customerList.get(i).getName()) {
-		    customerpos = i;
-		   }
-		  }
+		  int customerpos = LocateCustomer(customerList);
 		  String deletecustomer = Helper.readString("Do you want to delete this customer information? > ");
 		  if (deletecustomer.equalsIgnoreCase("Yes")) {
 		   customerList.remove(customerpos);
 		   System.out.println("Customer information has been removed");
 		  }
 		 }
+	public static int LocateCustomer(ArrayList<customer> customerList) {
+		String name = Helper.readString("Enter name> ");
+		  int customerpos = -1;
+		  for (int i = 0; i < customerList.size(); i++) {
+		   if (name == customerList.get(i).getName()) {
+		    customerpos = i;
+		   }
+		  }
+		return customerpos;
+	}
 	
 	
 	//Outlet (Done by Yufan)
@@ -462,6 +470,14 @@ public class C206_CaseStudy {
 		}
 	//Delete Outlet (Done by: Yufan)
 	public static void deleteOutlet(ArrayList<Outlet>outletList) {
+		int outpos = LocateOutlet(outletList);
+		String yesorno=Helper.readString("You sure u want to delete this outlet? (Yes/No)>");
+		if (yesorno.equalsIgnoreCase("Yes")){
+			outletList.remove(outpos);
+			System.out.println("Outlet has been remove");
+		}
+	}
+	public static int LocateOutlet(ArrayList<Outlet> outletList) {
 		int outlet_id = Helper.readInt("Enter outlet_id: ");
 		int outpos=-1;
 		for(int i=0;i<outletList.size();i++) {
@@ -469,11 +485,7 @@ public class C206_CaseStudy {
 				outpos=i;
 			}
 			}
-		String yesorno=Helper.readString("You sure u want to delete this outlet? (Yes/No)>");
-		if (yesorno.equalsIgnoreCase("Yes")){
-			outletList.remove(outpos);
-			System.out.println("Outlet has been remove");
-		}
+		return outpos;
 	}
 	
 	  //Header
