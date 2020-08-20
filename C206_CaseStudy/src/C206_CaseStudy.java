@@ -140,10 +140,9 @@ public class C206_CaseStudy {
 
 					else if (option == Delete_Customer) {
 						C206_CaseStudy.deleteCustomer(customerList);
-					}else if (option == Edit_customerPoints) {
+					} else if (option == Edit_customerPoints) {
 						C206_CaseStudy.editpoints(customerList);
-					}
-					else if (option == Exit_Customer) {
+					} else if (option == Exit_Customer) {
 						System.out.println("Bye!");
 					} else {
 						System.out.println("Invalid option");
@@ -445,7 +444,7 @@ public class C206_CaseStudy {
 		return customerpos;
 	}
 
-	public static void editpoints(ArrayList<customer> customerList) {//rupen
+	public static void editpoints(ArrayList<customer> customerList) {// rupen
 		int customerpos = LocateCustomer(customerList);
 		int edit_points = Helper.readInt("What is the updated points? >");
 		customerList.get(customerpos).setPoints(edit_points);
@@ -473,7 +472,35 @@ public class C206_CaseStudy {
 
 	// Add Outlet (Done by: Yufan)
 	public static Outlet inputOutlet() {
+
 		String location = Helper.readString("Enter location: ");
+
+		String location = Helper.readString("Enter location: ");
+		int outlet_id = Helper.readInt("Enter outlet_id: ");
+		int number_of_staff = Helper.readInt("Enter Number of staff: ");
+
+		Outlet ou = new Outlet(location, outlet_id, number_of_staff);
+		return ou;
+	}
+
+	public static void addOutlet(ArrayList<Outlet> outletList, Outlet ou) {
+		outletList.add(ou);
+		System.out.println("Outlet added ");
+	}
+
+	// Delete Outlet (Done by: Yufan)
+	public static void deleteOutlet(ArrayList<Outlet> outletList) {
+		int outpos = LocateOutlet(outletList);
+		String yesorno = Helper.readString("You sure u want to delete this outlet? (Yes/No)>");
+		if (yesorno.equalsIgnoreCase("Yes")) {
+			outletList.remove(outpos);
+			System.out.println("Outlet has been remove");
+		}
+	}
+
+	public static int LocateOutlet(ArrayList<Outlet> outletList) {
+
+>>>>>>> branch 'master' of https://github.com/19039761BenedictBryceLim/T2-C206-CaseStudy.git
 		int outlet_id = Helper.readInt("Enter outlet_id: ");
 		int number_of_staff = Helper.readInt("Enter Number of staff: ");
 
