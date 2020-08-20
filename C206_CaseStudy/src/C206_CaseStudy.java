@@ -83,15 +83,7 @@ public class C206_CaseStudy {
 						
 					}
 					else if (option == Delete_Procedure) {
-						String procedure = Helper.readString("Enter procedure > ");
-						for (int i = 0; i < procedureList.size(); i++) {
-							if (procedure==procedureList.get(i).getProcedure()) {
-								procedureList.remove(i);
-							}
-							else {
-								System.out.println("Does not exist.");
-							}
-						}
+						C206_CaseStudy.delProcedure(procedureList);
 					}else if (option == Exit_Procedure) {
 						System.out.println("Bye!");
 					}
@@ -107,23 +99,15 @@ public class C206_CaseStudy {
 					C206_CaseStudy.productMenu();
 					option = Helper.readInt("Enter an option > ");
 					if (option == Add_Product) {
-						int ProductID = Helper.readInt("Enter new product ID > ");
-						String description = Helper.readString("Enter description > ");
-						String category = Helper.readString("Enter category (Food/Beauty) > ");
-						String Supplier = Helper.readString("Enter supplier name > ");
-						productList.add(new product(ProductID, description, category, Supplier));
+						product pp = inputProuduct();
+						C206_CaseStudy.addProduct(productList, pp);
 					}
 					else if (option == View_ProductList) {
 						C206_CaseStudy.viewProductList(productList);
 						
 					}
 					else if (option == Delete_Product) {
-						int ID = Helper.readInt("Enter product ID > ");
-						for (int i = 0; i < productList.size(); i++) {
-							if (ID == productList.get(i).getProductID()) {
-								productList.remove(i);
-							}
-						}
+						C206_CaseStudy.deleteProduct(productList);
 					}
 					else if (option == Exit_Product) {
 						System.out.println("Bye!");
@@ -139,21 +123,14 @@ public class C206_CaseStudy {
 					C206_CaseStudy.outletMenu();
 					option = Helper.readInt("Enter an option > ");
 					if (option == Add_Outlet) {
-						String location = Helper.readString("Enter Location > ");
-						int outletID = Helper.readInt("Enter Outlet ID > ");
-						int no_of_staff = Helper.readInt("Enter number of staff > ");
-						outletList.add(new Outlet(location, outletID, no_of_staff));
+						Outlet ou = C206_CaseStudy.inputOutlet();
+						C206_CaseStudy.addOutlet(outletList, ou);
 					}
 					else if (option == View_OutletList) {
 						C206_CaseStudy.viewOutlet(outletList);
 					}
 					else if (option == Delete_Outlet) {
-						int outletID = Helper.readInt("Enter outletID > ");
-						for (int i = 0; i <outletList.size(); i++) {
-							if (outletID == outletList.get(i).getOutlet_id()) {
-								outletList.remove(i);
-							}
-						}
+						C206_CaseStudy.deleteOutlet(outletList);
 					} 
 					else if (option == 4) {
 						System.out.println("Bye!");
@@ -174,16 +151,6 @@ public class C206_CaseStudy {
 
 						customer c = inputCustomer();
 						C206_CaseStudy.addCustomer(customerList, c);
-					
-						
-
-						String name = Helper.readString("Enter name > ");
-						int number = Helper.readInt("Enter phone number > ");
-
-						int points = Helper.readInt("Enter points > ");
-
-						customerList.add(new customer(name, number, points));
-
 
 					} 
 					else if (option == View_CustomerList) {
@@ -312,9 +279,6 @@ public class C206_CaseStudy {
 			pos = i;
 			
 			}
-		else {
-			System.out.println("Does not exist");
-		}
 		}
 		String confirmation = Helper.readString("Confirm archive? (Yes/No) >");
 		if (confirmation.equalsIgnoreCase("Yes")) {
@@ -326,7 +290,7 @@ public class C206_CaseStudy {
 	
 	
 	
-	//Procedure
+	//Procedure (Done by Daryl)
 	public static String retrieveProcedureList (ArrayList<Procedure> procedureList) {
 		String output = "";
 		for (int i = 0; i < procedureList.size(); i++) {
@@ -355,11 +319,23 @@ public class C206_CaseStudy {
 		System.out.println("Procedure added");
 	}
 	//Delete Procedure
+	public static void delProcedure(ArrayList<Procedure> procedureList) {
+		String procedure = Helper.readString("Enter procedure > ");
+		int pos = -1;
+		for (int i = 0; i < procedureList.size(); i++) {
+			if (procedure==procedureList.get(i).getProcedure()) {
+				pos = i;
+			}
+			String confirmation = Helper.readString("Confirm Delete (Yes/No) >");
+			if (confirmation.equalsIgnoreCase("Yes")) {
+				procedureList.remove(pos);
+			}
+		}
+	}
 	
 	
 	
-	
-	//Product
+	//Product (Done by Boon Ying)
 	public static String retrieveProductList (ArrayList<product> productList) {
 		String output = " ";
 		for (int i = 0; i < productList.size(); i++) {
@@ -373,8 +349,38 @@ public class C206_CaseStudy {
 		output += retrieveProductList(productList);
 		System.out.println(output);
 	}
+	// add product (Done by boonying)
+	  public static product inputProuduct() {
+	    int ProductID = Helper.readInt("Enter new product ID > ");
+	    String description = Helper.readString("Enter description > ");
+	    String category = Helper.readString("Enter category (Food/Beauty) > ");
+	    String Supplier = Helper.readString("Enter supplier name > ");
+	    
+	    product pp = new product(ProductID, description, category, Supplier);
+	    return pp;
+	  }
+	  public static void addProduct(ArrayList<product>productList,product pp) {
+	    productList.add(pp);
+	    System.out.println("product added ");
+	  }
+
+	  // delete product (Done by boonying)
+	  public static void deleteProduct(ArrayList<product>productList) {
+	    int ProductID = Helper.readInt("Enter new product ID > ");
+	    int productpos=-1;
+	    for(int i=0;i<productList.size();i++) {
+	      if(ProductID==productList.get(i).getProductID()) {
+	        productpos=i;
+	      }
+	    }
+	    String deleteproduct = Helper.readString("Do you want to delete this product information? > ");
+	    if (deleteproduct.equalsIgnoreCase("Yes")) {
+	      productList.remove(productpos);
+	      System.out.println("Product information has been removed");
+	    }
+	  }
 	
-	//Customer
+	//Customer (Done by Rupen)
 	public static String retrieveCustomerList(ArrayList<customer> customerList) {
 		String output = "";
 
@@ -412,7 +418,7 @@ public class C206_CaseStudy {
 	
 	
 	
-	//Outlet
+	//Outlet (Done by Yufan)
 	public static String retrieveAllOutlet(ArrayList<Outlet> outletList) {
 	    String output="";
 	    for (int i = 0; i < outletList.size(); i++) {
