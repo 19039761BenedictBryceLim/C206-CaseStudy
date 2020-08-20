@@ -91,8 +91,30 @@ public class C206_CaseStudyTest {
 		assertEquals("Test that Procedure arraylist size is 2?", 2, procedureList.size());
 	
 	}
+	@Test
+	public void viewProcedureTest() {
+		// Test if Item list is not null but empty, so that can add a new item
+		  assertNotNull("Test if there is valid Procedure arraylist to add to", procedureList);
+
+		  // test if the list of customers retrieved from the SourceCentre is empty
+		  String allProcedure= C206_CaseStudy.retrieveProcedureList(procedureList); 
+		  String Output = "";
+		  assertEquals("Check that ViewAllProcedureList", Output, allProcedure);
+
+		  // Given an empty list, after adding 2 items, test if the size of the list is 2
+		  C206_CaseStudy.addProcedure(procedureList, p1);
+		  C206_CaseStudy.addProcedure(procedureList, p2);
+		  assertEquals("Test if Procedure ArrayList size is 2?", 2, procedureList.size());
+
+		  allProcedure = C206_CaseStudy.retrieveProcedureList(procedureList); 
+
+		  Output = String.format("%-20s %-20s %-20d %-20s \n", "Delete", "20/8/2020", 021, "Delete procedure");
+		  Output += String.format("%-20s %-20s %-20d %-20s \n", "Return", "20/8/2020", 002, "Return procedure");
+
+		  assertSame("Check that ViewAllProcedureList", Output, allProcedure);
+	}
+	@Test
 	public void delProcedureTest() {
-		
 	}
 	
 	
