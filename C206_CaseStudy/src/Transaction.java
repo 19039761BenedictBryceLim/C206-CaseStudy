@@ -1,4 +1,4 @@
-
+//Done by Benedict
 public class Transaction {
 	private int transactionID;
 	

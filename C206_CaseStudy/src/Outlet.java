@@ -1,4 +1,4 @@
-
+//Done by Yufan
 public class Outlet {
 private String location;
 private int outlet_id;
