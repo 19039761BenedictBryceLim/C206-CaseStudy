@@ -2,6 +2,9 @@ import java.util.ArrayList;
 
 public class C206_CaseStudy {
 
+	private static final int Exit_Procedure = 6;
+	private static final int Search_Procedure = 5;
+	private static final int Update_Procedure = 4;
 	private static final int Edit_customerPoints = 4;
 	private static final int Delete_Outlet = 3;
 	private static final int View_OutletList = 2;
@@ -14,7 +17,6 @@ public class C206_CaseStudy {
 	private static final int Delete_Product = 3;
 	private static final int View_ProductList = 2;
 	private static final int Add_Product = 1;
-	private static final int Exit_Procedure = 4;
 	private static final int Delete_Procedure = 3;
 	private static final int View_ProcedureList = 2;
 	private static final int Add_Procedure = 1;
@@ -78,7 +80,14 @@ public class C206_CaseStudy {
 
 					} else if (option == Delete_Procedure) {
 						C206_CaseStudy.delProcedure(procedureList);
-					} else if (option == Exit_Procedure) {
+					} 
+					else if (option == Update_Procedure) {
+						C206_CaseStudy.updateProcedure(procedureList);
+					}
+					else if (option == Search_Procedure) {
+						C206_CaseStudy.searchProcedure(procedureList);
+					}
+					else if (option == Exit_Procedure) {
 						System.out.println("Bye!");
 					} else {
 						System.out.println("Invalid option");
@@ -185,7 +194,9 @@ public class C206_CaseStudy {
 		System.out.println("1. Add Procedure");
 		System.out.println("2. View Procedure");
 		System.out.println("3. Delete Procedure");
-		System.out.println("4. Quit");
+		System.out.println("4. Update Procedure Date");
+		System.out.println("5. Search A Procedure");
+		System.out.println("6. Quit");
 		Helper.line(80, "-");
 	}
 
@@ -282,14 +293,14 @@ public class C206_CaseStudy {
 	public static String retrieveProcedureList(ArrayList<Procedure> procedureList) {
 		String output = "";
 		for (int i = 0; i < procedureList.size(); i++) {
-			output += String.format("%d %-10s \n", (i + 1), procedureList.get(i).getProcedure());
+			output += String.format("%-10d %-20s %-20d %-20s %-20s \n", (i + 1), procedureList.get(i).getProcedure(), procedureList.get(i).getProcedureID(), procedureList.get(i).getDescription(),procedureList.get(i).getDate());
 		}
 		return output;
 	}
 
 	public static void viewProcedureList(ArrayList<Procedure> procedureList) {
 		C206_CaseStudy.setHeader("PROCEDURE LIST");
-		String output = String.format("%s %-10s \n", "No.", "ID");
+		String output = String.format("%-10s %-20s %-20s %-20s %-20s \n", "No.", "Procedure", "Procedure ID", "Description", "Date");
 		output += retrieveProcedureList(procedureList);
 		System.out.println(output);
 	}
@@ -326,6 +337,42 @@ public class C206_CaseStudy {
 			}
 		}
 	}
+	
+	//Update Procedure date by Daryl
+	public static void updateProcedure(ArrayList<Procedure> procedureList) {
+		String name = Helper.readString("Enter procedure name to update date > ");
+		
+		for (int i = 0; i < procedureList.size(); i++) {
+			if (name.equalsIgnoreCase(procedureList.get(i).getProcedure())) {
+				String newDate = Helper.readString("Enter new date > ");
+				procedureList.get(i).setDate(newDate);
+				System.out.println(procedureList.get(i).getProcedure() + " date has been changed to " + newDate);
+				break;
+			}
+			else {
+				System.out.println("Invalid procedure");
+			}
+		}
+	}
+	// Search A procedure by Daryl
+	public static void searchProcedure(ArrayList<Procedure> procedureList) {
+		String procedure = Helper.readString("Enter procedure to find > ");
+		String output = String.format("%-20s %-20s %-20s %-20s \n", "Procedure", "Procedure ID", "Description", "Date");
+		for (int i = 0; i < procedureList.size(); i++ ) {
+			if (procedure.equalsIgnoreCase(procedureList.get(i).getProcedure())) {
+				output += String.format("%-20s %-20d %-20s %-20s", procedureList.get(i).getProcedure(), procedureList.get(i).getProcedureID(), procedureList.get(i).getDescription(),procedureList.get(i).getDate());
+				System.out.println(output);
+				break;
+			}
+			else {
+				System.out.println("Invalid procedure");
+			}
+		}
+	}
+	
+	
+	
+	
 
 	// Product (Done by Boon Ying)
 	public static String retrieveProductList(ArrayList<product> productList) {
