@@ -53,8 +53,8 @@ public class C206_CaseStudyTest {
 				procedureList= new ArrayList<Procedure>();
 				
 				//TransactionID
-				t1 = new Transaction("Melvin", "20/8/2020", "Joe", 9100);
-				t2 = new Transaction("John", "20/8/2020", "Joe", 9200);
+				t1 = new Transaction("Melvin", "20/8/2020", "Joe", 9100, 12345678, 900);
+				t2 = new Transaction("John", "20/8/2020", "Joe", 9200, 12345678, 900);
 				
 				transactionList= new ArrayList<Transaction>();
 				

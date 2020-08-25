@@ -21,7 +21,6 @@ public class C206_CaseStudy {
 	private static final int View_ProcedureList = 2;
 	private static final int Add_Procedure = 1;
 	private static final int Archive_Transaction = 3;
-	private static final int Exit_Transaction = 4;
 	private static final int View_TransactionList = 2;
 	private static final int Add_Transaction = 1;
 	private static final int Exit_Option = 6;
@@ -41,11 +40,16 @@ public class C206_CaseStudy {
 
 		procedureList.add(new Procedure("Return", "06/08/2020", 01, "return products"));
 		procedureList.add(new Procedure("Exchange", "07/08/2020", 02, "exchange products"));
-
+		customerList.add(new customer("Mike", 12345678, 1000));
+		productList.add(new product(20, "Apple", "Fruit", "Fruity", 2));
+		
+	
+		
 		int option = 0;
 		while (option != 6) {
 			C206_CaseStudy.menu();
 			option = Helper.readInt("Enter an option > ");
+			
 			if (option == Transaction_option) { // Benedict
 				option = 0;
 				while (option != 5) {
@@ -57,10 +61,17 @@ public class C206_CaseStudy {
 						C206_CaseStudy.addTransaction(transactionList, t);
 
 					} else if (option == View_TransactionList) {
-						C206_CaseStudy.viewTransactionList(transactionList);
+						C206_CaseStudy.viewTransactionList(transactionList,customerList, productList);
 					} else if (option == Archive_Transaction) {
 						C206_CaseStudy.archiveTransaction(transactionList);
-					} else if (option == Exit_Transaction) {
+					}
+					else if (option == 4) {
+						C206_CaseStudy.updateTransaction(transactionList);
+					}
+					else if (option ==5) {
+						
+					}
+					else if (option ==6 ) {
 						System.out.println("Bye!");
 					} else {
 						System.out.println("Invalid Option.");
@@ -184,7 +195,9 @@ public class C206_CaseStudy {
 		System.out.println("1. Add Transaction");
 		System.out.println("2. View Transaction");
 		System.out.println("3. Archive Transaction");
-		System.out.println("4. Quit");
+		System.out.println("4. Update Transaction");
+		System.out.println("5. ");
+		System.out.println("6. Quit");
 		Helper.line(80, "-");
 	}
 
@@ -233,21 +246,36 @@ public class C206_CaseStudy {
 	}
 
 	// Transaction
-	public static String retrieveTransactionList(ArrayList<Transaction> transactionList) {
+	public static String retrieveTransactionList(ArrayList<Transaction> transactionList , ArrayList<customer> customerList, ArrayList<product> productList) {
 		String output = "";
+		int cu = 0;
+		int pp = 0;
 		for (int i = 0; i < transactionList.size(); i++) {
-			output += String.format("%d %-25s %-25s %-25s %-25d\n", (i + 1), transactionList.get(i).getCusName(),
+			output += String.format("%d %-25s %-25s %-25s %-25d  ", (i + 1), transactionList.get(i).getCusName(),
 					transactionList.get(i).getDate(), transactionList.get(i).getStaffName(),
 					transactionList.get(i).getTransactionID());
+			if (transactionList.get(i).getPhoneNumber() == customerList.get(cu).getNumber()) {
+				output += String.format("%-25d ", customerList.get(cu).getPoints());
+			}
+			else {
+				cu += 1;
+			}
+			
+			if (transactionList.get(i).getProductID() == productList.get(pp).getProductID()) {
+				output += String.format("%-25s \n", productList.get(pp).getDescription());
+			}
+			else {
+				pp += 1;
+			}
 		}
 		return output;
 	}
 
-	public static void viewTransactionList(ArrayList<Transaction> transactionList) {
+	public static void viewTransactionList(ArrayList<Transaction> transactionList, ArrayList<customer> customerList, ArrayList<product> productList) {
 		C206_CaseStudy.setHeader("TRANSACTION LIST");
-		String output = String.format("%s %-25s %-25s %-25s %-25s \n", "No.", "Customer Name", "Date", "Staff Name",
-				"ID");
-		output += retrieveTransactionList(transactionList);
+		String output = String.format("%s %-25s %-25s %-25s %-25s %-25s %-25s \n", "No.", "Customer Name", "Date", "Staff Name",
+				"ID", "Customer Points", "Product Name");
+		output += retrieveTransactionList(transactionList, customerList, productList);
 		System.out.println(output);
 	}
 
@@ -257,15 +285,18 @@ public class C206_CaseStudy {
 		String date = Helper.readString("Enter date > ");
 		String SN = Helper.readString("Enter Staff Name > ");
 		int tID = Helper.readInt("Enter Transaction ID > ");
+		int pN = Helper.readInt("Enter customer phone number >");
+		int PID = Helper.readInt("Enter product ID > ");
 
-		Transaction tr = new Transaction(CN, date, SN, tID);
+		Transaction tr = new Transaction(CN, date, SN, tID, pN, PID);
 		return tr;
+		
 
 	}
 
-	public static void addTransaction(ArrayList<Transaction> transactionList, Transaction t) {
+	public static void addTransaction(ArrayList<Transaction> transactionList, Transaction tr) {
 
-		transactionList.add(t);
+		transactionList.add(tr);
 		System.out.println("Transaction added");
 	}
 
@@ -283,9 +314,40 @@ public class C206_CaseStudy {
 		String confirmation = Helper.readString("Confirm archive? (Yes/No) >");
 		if (confirmation.equalsIgnoreCase("Yes")) {
 			archiveList.add(new Transaction(transactionList.get(pos).getCusName(), transactionList.get(pos).getDate(),
-					transactionList.get(pos).getStaffName(), transactionList.get(pos).getTransactionID()));
+					transactionList.get(pos).getStaffName(), transactionList.get(pos).getTransactionID(), transactionList.get(pos).getPhoneNumber(),transactionList.get(pos).getProductID()));
 			transactionList.remove(pos);
 			System.out.println("Successfully archived.");
+		}
+	}
+	//Update Transaction Done by BEN
+	public static void updateTransaction (ArrayList<Transaction> transactionList) {
+		int transactionID = Helper.readInt("Enter transaction ID to update > ");
+		String output = String.format("%-25s %-25s %-25s %-25s \n", "Customer Name", "Date", "Staff Name", "ID");
+		int check = -1;
+		
+		for (int i = 0; i < transactionList.size(); i++) {
+			if (transactionID == transactionList.get(i).getTransactionID()) {
+				String newCusName = Helper.readString("Enter new/existing customer name> ");
+				String newDate = Helper.readString("Enter new/existing date> ");
+				String newStaffName = Helper.readString("Enter new/existing Staff name> ");
+				int newTransactionID = Helper.readInt("Enter new/existing transaction ID> ");
+				transactionList.get(i).setCusName(newCusName);
+				transactionList.get(i).setDate(newDate);
+				transactionList.get(i).setStaffName(newStaffName);
+				transactionList.get(i).setTransactionID(newTransactionID);
+				
+				output += String.format("%-25s %-25s %-25s %-25d", transactionList.get(i).getCusName(),
+						transactionList.get(i).getDate(), transactionList.get(i).getStaffName(),
+						transactionList.get(i).getTransactionID());
+				check = 1;
+				break;
+			}
+		}
+		if (check == 1) {
+			System.out.println(output);
+		}
+		else {
+			System.out.println("Invalid Transaction ID");
 		}
 	}
 
