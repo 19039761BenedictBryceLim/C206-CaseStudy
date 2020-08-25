@@ -53,8 +53,8 @@ public class C206_CaseStudyTest {
 				procedureList= new ArrayList<Procedure>();
 				
 				//TransactionID
-				t1 = new Transaction("Melvin", "20/8/2020", "Joe", 9100, 12345678, 900);
-				t2 = new Transaction("John", "20/8/2020", "Joe", 9200, 12345678, 900);
+				t1 = new Transaction("Melvin", "20/8/2020", "Joe", 9100);
+				t2 = new Transaction("John", "20/8/2020", "Joe", 9200);
 				
 				transactionList= new ArrayList<Transaction>();
 				
@@ -130,7 +130,21 @@ public class C206_CaseStudyTest {
 		
 	}
 	
+	@Test
+	public void updateProceduredateTest()
+	{
+		
+		//Normal
+		C206_CaseStudy.addProcedure(procedureList, p1);
+		C206_CaseStudy.updateProcedure(procedureList); // Update test - Delete
+		assertSame("Test that Procedure added and updated is same as 1st item of the list?", p1, procedureList.get(0));
+		
+		
+		
+	}
 	
+	
+	//END OF PROCEDURE TESTS
 	//TRANSACTION TESTS - Benedict
 	@Test
 	public void addTransactionTest() {
@@ -293,6 +307,23 @@ public class C206_CaseStudyTest {
 			assertEquals("Test that productList is empty after delete", 0, productList.size());
 			productList.clear();
 		  }
+	
+	
+	public void TopVendorsreturnTest() {
+	    // boundary
+	    assertNotNull("Test if there is valid vendor in the arraylist to return ", productList);
+	    C206_CaseStudy.addProduct(productList, pr1);
+	    C206_CaseStudy.addProduct(productList, pr2);
+	    
+	    // normal - Given an empty list, after returning 2 vendors, test if the size of the list is 0
+	    C206_CaseStudy.addProduct(productList, pr1);
+	      C206_CaseStudy.addProduct(productList, pr2);
+	      C206_CaseStudy.returnVendor(productList);
+	      assertEquals("Test that the vendor in product arraylist size is 0", 0, productList.size());
+	      
+	      // Test that the top vendor return in the productList can't be viewed if it's empty - error
+	      assertEquals("Test that vendor in the productList is empty after return", 0, productList.size());
+	
 	
 	//END OF PRODUCT TEST
 	
