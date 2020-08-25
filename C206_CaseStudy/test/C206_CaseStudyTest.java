@@ -141,10 +141,10 @@ public class C206_CaseStudyTest {
 		
 		//Boundary (Don't think can be tested)
 		
+		
 		//Error
-		C206_CaseStudy.addProcedure(procedureList, p2);
 		C206_CaseStudy.updateProcedure(procedureList);
-		assertSame("Test that Procedure updated is not the same as 1st item of the list", p2, procedureList.get(1)); //change to procedureList.get(0) for error
+		assertNotSame("Test that Procedure updated is not the same as 1st item of the list", p2, procedureList.get(1)); //change to procedureList.get(0) for error
 		
 		
 		
@@ -218,14 +218,14 @@ public class C206_CaseStudyTest {
 		//Normal
 		C206_CaseStudy.addTransaction(transactionList, t1);
 		C206_CaseStudy.updateTransaction(transactionList); // Update test - Delete
-		assertSame("Test that Transaction added and updated is same as 1st item of the list?", p1, transactionList.get(0));
+		assertSame("Test that Transaction added and updated is same as 1st item of the list?", t1, transactionList.get(0));
 		
 		//Boundary (Don't think can be tested)
 		
 		//Error
-		C206_CaseStudy.addTransaction(transactionList, t2);
+		
 		C206_CaseStudy.updateTransaction(transactionList);
-		assertSame("Test that Transaction updated is not the same as 1st item of the list", t2, transactionList.get(1)); //change to transactionList.get(0) for error
+		assertNotSame("Test that Transaction updated is not the same as 1st item of the list", t2, transactionList.get(1)); //change to transactionList.get(0) for error
 		
 		
 		
