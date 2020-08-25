@@ -48,13 +48,13 @@ public class C206_CaseStudyTest {
 				
 				//ProcedureName
 				p1 = new Procedure("Delete", "20/8/2020", 001, "Delete procedure");
-				p2 = new Procedure("Return", "20/8/2020", 002, "Return procedure");
+				p2 = new Procedure("Exchange", "20/8/2020", 002, "Exchange procedure");
 				
 				procedureList= new ArrayList<Procedure>();
 				
 				//TransactionID
-				t1 = new Transaction("Melvin", "20/8/2020", "Joe", 9100);
-				t2 = new Transaction("John", "20/8/2020", "Joe", 9200);
+				t1 = new Transaction("Melvin", "20/8/2020", "Joe", 9100, 99999999, 900);
+				t2 = new Transaction("John", "20/8/2020", "Joe", 9200, 88888888, 800);
 				
 				transactionList= new ArrayList<Transaction>();
 				
@@ -139,6 +139,13 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.updateProcedure(procedureList); // Update test - Delete
 		assertSame("Test that Procedure added and updated is same as 1st item of the list?", p1, procedureList.get(0));
 		
+		//Boundary (Don't think can be tested)
+		
+		//Error
+		C206_CaseStudy.addProcedure(procedureList, p2);
+		C206_CaseStudy.updateProcedure(procedureList);
+		assertSame("Test that Procedure updated is not the same as 1st item of the list", p2, procedureList.get(1)); //change to procedureList.get(0) for error
+		
 		
 		
 	}
@@ -171,7 +178,7 @@ public class C206_CaseStudyTest {
 		assertNotNull("Test if there is valid Transaction arraylist to add to", transactionList);
 		
 		//test if the list of transactions retrieved from the C206_CaseStudy is empty - Normal
-				String allTransaction= C206_CaseStudy.retrieveTransactionList(transactionList);
+				String allTransaction= C206_CaseStudy.retrieveTransactionList(transactionList, customerList, productList);
 				String testOutput = "";
 				assertEquals("Check that allTransaction", testOutput, allTransaction);
 				
@@ -191,7 +198,8 @@ public class C206_CaseStudyTest {
 		//Test archiveList can receive details from transactionList after archiving. - Normal
 		C206_CaseStudy.addTransaction(transactionList, t1);	
 		int pos = 0;
-		archiveList.add(new Transaction(transactionList.get(0).getCusName(),transactionList.get(pos).getDate(),transactionList.get(pos).getStaffName(),transactionList.get(pos).getTransactionID()));
+		archiveList.add(new Transaction(transactionList.get(pos).getCusName(), transactionList.get(pos).getDate(),
+				transactionList.get(pos).getStaffName(), transactionList.get(pos).getTransactionID(), transactionList.get(pos).getPhoneNumber(),transactionList.get(pos).getProductID()));
 		transactionList.remove(pos);
 		assertEquals("Test if archiveList received information from transactionList", 1, archiveList.size());
 		
@@ -201,6 +209,29 @@ public class C206_CaseStudyTest {
 	    
 	    
 	}
+	
+	
+	@Test
+	public void updateTransactionTest()
+	{
+		
+		//Normal
+		C206_CaseStudy.addTransaction(transactionList, t1);
+		C206_CaseStudy.updateTransaction(transactionList); // Update test - Delete
+		assertSame("Test that Procedure added and updated is same as 1st item of the list?", p1, transactionList.get(0));
+		
+		//Boundary (Don't think can be tested)
+		
+		//Error
+		C206_CaseStudy.addTransaction(transactionList, t2);
+		C206_CaseStudy.updateTransaction(transactionList);
+		assertSame("Test that Procedure updated is not the same as 1st item of the list", t2, transactionList.get(1)); //change to transactionList.get(0) for error
+		
+		
+		
+	}
+	
+	
 	
 	//END OF TRANSACTION TEST
 	
@@ -308,7 +339,7 @@ public class C206_CaseStudyTest {
 			productList.clear();
 		  }
 	
-	
+	/*
 	public void TopVendorsreturnTest() {
 	    // boundary
 	    assertNotNull("Test if there is valid vendor in the arraylist to return ", productList);
@@ -323,7 +354,7 @@ public class C206_CaseStudyTest {
 	      
 	      // Test that the top vendor return in the productList can't be viewed if it's empty - error
 	      assertEquals("Test that vendor in the productList is empty after return", 0, productList.size());
-	
+	*/
 	
 	//END OF PRODUCT TEST
 	
