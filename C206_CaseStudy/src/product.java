@@ -1,4 +1,4 @@
-//Done By Boon Ying 
+//Done By Boon Ying
 public class product {
 	private int productID;
 	private String productName;
