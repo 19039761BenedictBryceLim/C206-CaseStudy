@@ -643,7 +643,7 @@ public class C206_CaseStudy {
 		String name = Helper.readString("Enter name> ");
 		int customerpos = -1;
 		for (int i = 0; i < customerList.size(); i++) {
-			if (name == customerList.get(i).getName()) {
+			if (name.equalsIgnoreCase(customerList.get(i).getName())) {
 				customerpos = i;
 			}
 		}
