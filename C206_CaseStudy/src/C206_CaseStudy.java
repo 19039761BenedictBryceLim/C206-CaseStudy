@@ -6,6 +6,8 @@ public class C206_CaseStudy {
 	private static final int Search_Procedure = 5;
 	private static final int Update_Procedure = 4;
 	private static final int Edit_customerPoints = 4;
+	private static final int TopProductsreturn = 4;
+	private static final int topVendorReturn = 5;
 	private static final int Delete_Outlet = 3;
 	private static final int View_OutletList = 2;
 	private static final int Add_Outlet = 1;
@@ -13,7 +15,7 @@ public class C206_CaseStudy {
 	private static final int Delete_Customer = 3;
 	private static final int Exit_Customer = 4;
 	private static final int Add_Customer = 1;
-	private static final int Exit_Product = 4;
+	private static final int Exit_Product = 6;
 	private static final int Delete_Product = 3;
 	private static final int View_ProductList = 2;
 	private static final int Add_Product = 1;
@@ -41,7 +43,7 @@ public class C206_CaseStudy {
 		procedureList.add(new Procedure("Return", "06/08/2020", 01, "return products"));
 		procedureList.add(new Procedure("Exchange", "07/08/2020", 02, "exchange products"));
 		customerList.add(new customer("Mike", 12345678, 1000));
-		productList.add(new product(900, "Apple", "-", "Fruit", "AppleLife", 2));
+		productList.add(new product(900, "Apple", "-", "Fruit", "AppleLife", 2.0, 8));
 		transactionList.add(new Transaction("Mike", "26/8/2020", "Joe", 555, 12345678, 900));
 	
 
@@ -103,6 +105,7 @@ public class C206_CaseStudy {
 
 					}
 				}
+				
 			} else if (option == Product_Option) {
 				option = 0;
 				while (option != 5) {
@@ -116,12 +119,20 @@ public class C206_CaseStudy {
 
 					} else if (option == Delete_Product) {
 						C206_CaseStudy.deleteProduct(productList);
+						
+					} else if (option == TopProductsreturn) {
+						C206_CaseStudy.TopProductsreturn(productList);
+						
+					} else if (option == topVendorReturn) {
+						C206_CaseStudy.topVendorReturn(productList);
+						
 					} else if (option == Exit_Product) {
 						System.out.println("Bye!");
-					} else {
-						System.out.println("Invalid Option.");
-					}
+						} else {
+							System.out.println("Invalid Option.");
 				}
+			}
+				
 			} else if (option == Outlet_Option) {
 				option = 0;
 				while (option != 5) {
@@ -216,7 +227,9 @@ public class C206_CaseStudy {
 		System.out.println("1. Add Product");
 		System.out.println("2. View Product");
 		System.out.println("3. Delete Product");
-		System.out.println("4. Quit");
+		System.out.println("4. Top product return");
+		System.out.println("5. Top vendor return");
+		System.out.println("6. Quit");
 		Helper.line(80, "-");
 	}
 
@@ -438,66 +451,132 @@ public class C206_CaseStudy {
 		}
 	}
 	
-	
-	
-	
-
 	// Product (Done by Boon Ying)
-	public static String retrieveProductList(ArrayList<product> productList) { //boonying
-		String output = " ";
-		for (int i = 0; i < productList.size(); i++) {
-			output += String.format("%-20d %-20d %-20s %-20s %-20s %-20s $%-20.2f", (i + 1), productList.get(i).getProductID(),productList.get(i).getProductName(),
-					productList.get(i).getDescription(), productList.get(i).getCategory(),
-					productList.get(i).getSupplierName(), productList.get(i).getPrice());
+		public static String retrieveProductList(ArrayList<product> productList) {
+			String output = " ";
+			for (int i = 0; i < productList.size(); i++) {
+				output += String.format("%d %-20d %-20s %-20s %-20s %-20s $%-20.2f %-20d \n", (i + 1), productList.get(i).getProductID(),
+						productList.get(i).getProductName(), productList.get(i).getDescription(), productList.get(i).getCategory(),
+						productList.get(i).getvendor(), productList.get(i).getPrice(), productList.get(i).getVendorpoints());
+			}
+			return output;
 		}
-		return output;
-	}
 
-	public static void viewProductList(ArrayList<product> productList) { //boonying
-		C206_CaseStudy.setHeader("PRODUCT LisT");
-		String output = String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s", "No.", "ID","Product", "Description", "Category", "Supplier Name", "Price");
-		output += retrieveProductList(productList);
-		System.out.println(output);
-	}
-
-	// add product (Done by boonying)
-	public static product inputProuduct() { //boonying
-		int ProductID = Helper.readInt("Enter new product ID > ");
-		String product = Helper.readString("Enter product > ");
-		String description = Helper.readString("Enter description > ");
-		String category = Helper.readString("Enter category (Food/Beauty) > ");
-		String Supplier = Helper.readString("Enter supplier name > ");
-		double price = Helper.readDouble("Enter price > $");
-
-		product pp = new product(ProductID,product, description, category, Supplier, price);
-		return pp;
-	}
-
-	public static void addProduct(ArrayList<product> productList, product pp) {//boonying
-		productList.add(pp);
-		System.out.println("product added ");
-	}
-
-	// delete product (Done by boonying)
-	public static void deleteProduct(ArrayList<product> productList) { //boonying
-		int productpos = LocateProduct(productList);
-		String deleteproduct = Helper.readString("Do you want to delete this product information? > ");
-		if (deleteproduct.equalsIgnoreCase("Yes")) {
-			productList.remove(productpos);
-			System.out.println("Product information has been removed");
+		public static void viewProductList(ArrayList<product> productList) {
+			C206_CaseStudy.setHeader("PRODUCT LIST");
+			String output = String.format("%s %-20s %-20s %-20s %-20s %-20s %-20s %-20s \n", "No.", "ID", "ProductName", "Description", 
+					"Category", "Vendor", "Price", "Vendor Points");
+			output += retrieveProductList(productList);
+			System.out.println(output);
 		}
-	}
 
-	public static int LocateProduct(ArrayList<product> productList) { //boonying
-		int ProductID = Helper.readInt("Enter new product ID > ");
-		int productpos = -1;
-		for (int i = 0; i < productList.size(); i++) {
-			if (ProductID == productList.get(i).getProductID()) {
-				productpos = i;
+		// add product (Done by boonying)
+		public static product inputProuduct() {
+			int ProductID = Helper.readInt("Enter new product ID > ");
+			String productName = Helper.readString("Enter product > ");
+			String description = Helper.readString("Enter description > ");
+			String category = Helper.readString("Enter category (Food/Beauty) > ");
+			String vendor = Helper.readString("Enter supplier name > ");
+			double price = Helper.readDouble("Enter price > $");
+			int vendorpoints = Helper.readInt("Enter points for vendor > ");
+
+			product pp = new product(ProductID, productName, description, category, vendor, price, vendorpoints);
+			return pp;
+		}
+
+		public static void addProduct(ArrayList<product> productList, product pp) {
+			productList.add(pp);
+			System.out.println("product added ");
+		}
+
+		// delete product (Done by boonying)
+		public static void deleteProduct(ArrayList<product> productList) {
+			int productpos = LocateProduct(productList);
+			String deleteproduct = Helper.readString("Do you want to delete this product information? > ");
+			if (deleteproduct.equalsIgnoreCase("Yes")) {
+				productList.remove(productpos);
+				System.out.println("Product information has been removed");
+			}
+			else {
+				System.out.println("Invalid product ID");
 			}
 		}
-		return productpos;
-	}
+
+		public static int LocateProduct(ArrayList<product> productList) {
+			int ProductID = Helper.readInt("Enter product ID > ");
+			int productpos = -1;
+			for (int i = 0; i < productList.size(); i++) {
+				if (ProductID == productList.get(i).getProductID()) {
+					productpos = i;
+				}
+			}
+			return productpos;
+		}
+		
+		// return product (done by boonying)
+		public static void returnProduct(ArrayList<product> productList) {
+			int returnproduct = Helper.readInt("Enter the product ID to return > ");
+			int pro = 0;
+			for (int i = 0; i < productList.size(); i++) {
+				if(returnproduct == productList.get(i).getProductID()) {
+					productList.get(i).setPrice(productList.get(i).getPrice()+1);
+					pro = 1;
+				}
+			}
+			if (pro == 1) {
+				System.out.println("Product return successfully");
+			}
+			else {
+				System.out.println("Invalid product");
+			}
+		}
+		
+		// top product return - (done by boonying)
+		public static void TopProductsreturn(ArrayList<product> productList) {
+			C206_CaseStudy.returnProduct(productList);
+			double topReturn = 0;
+			String productname  = "";
+			for (int i = 0; i<productList.size(); i++) {
+				if (topReturn < productList.get(i).getPrice()) {
+					topReturn = productList.get(i).getPrice();
+					productname = productList.get(i).getDescription();
+				}
+				System.out.println("Top product return: " + productname);
+				
+			}
+		}
+		
+		// return vendor - (done by boonying)
+		public static void returnVendor(ArrayList<product> productList) {
+		    String returnVendor = Helper.readString("Enter vendor to return > ");
+		    int ven = 0;
+		    for (int i = 0; i < productList.size(); i++ ) {
+		      if (returnVendor.equalsIgnoreCase(productList.get(i).getvendor())){
+		        productList.get(i).setVendorpoints(productList.get(i).getVendorpoints()+1);
+		        ven = 1;
+		      }
+		    }
+		    if (ven == 1) {
+		      System.out.println("Vendor return successfully");
+		    }
+		    else {
+		      System.out.println("Invalid vendor");
+		    }
+		  }
+		
+		// top vendor return - (done by boonying)
+		  public static void topVendorReturn(ArrayList<product> productList) {
+			  C206_CaseStudy.returnVendor(productList);
+		        int highestpoints = 0;
+		        String vendorName = "";
+		        for (int i = 0; i<productList.size(); i++) {
+		          if (highestpoints < productList.get(i).getVendorpoints()) {
+		            highestpoints = productList.get(i).getVendorpoints();
+		            vendorName = productList.get(i).getvendor();
+		          }
+		      } System.out.println("Top vendor return is: "+ vendorName);
+		   }
+
 
 	// Customer (Done by Rupen)
 	public static String retrieveCustomerList(ArrayList<customer> customerList) { // rupen
