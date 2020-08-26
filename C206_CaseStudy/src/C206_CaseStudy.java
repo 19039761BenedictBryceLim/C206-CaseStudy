@@ -41,9 +41,10 @@ public class C206_CaseStudy {
 		procedureList.add(new Procedure("Return", "06/08/2020", 01, "return products"));
 		procedureList.add(new Procedure("Exchange", "07/08/2020", 02, "exchange products"));
 		customerList.add(new customer("Mike", 12345678, 1000));
-		productList.add(new product(20, "Apple", "Fruit", "Fruity", 2));
-		
+		productList.add(new product(900, "Apple", "-", "Fruit", "AppleLife", 2));
+		transactionList.add(new Transaction("Mike", "26/8/2020", "Joe", 555, 12345678, 900));
 	
+
 		
 		int option = 0;
 		while (option != 6) {
@@ -66,12 +67,9 @@ public class C206_CaseStudy {
 						C206_CaseStudy.archiveTransaction(transactionList);
 					}
 					else if (option == 4) {
-						C206_CaseStudy.updateTransaction(transactionList);
+						C206_CaseStudy.updateTransaction(transactionList, customerList, productList);
 					}
-					else if (option ==5) {
-						
-					}
-					else if (option ==6 ) {
+					else if (option == 5 ) {
 						System.out.println("Bye!");
 					} else {
 						System.out.println("Invalid Option.");
@@ -196,8 +194,7 @@ public class C206_CaseStudy {
 		System.out.println("2. View Transaction");
 		System.out.println("3. Archive Transaction");
 		System.out.println("4. Update Transaction");
-		System.out.println("5. ");
-		System.out.println("6. Quit");
+		System.out.println("5. Quit");
 		Helper.line(80, "-");
 	}
 
@@ -274,7 +271,7 @@ public class C206_CaseStudy {
 	public static void viewTransactionList(ArrayList<Transaction> transactionList, ArrayList<customer> customerList, ArrayList<product> productList) {
 		C206_CaseStudy.setHeader("TRANSACTION LIST");
 		String output = String.format("%s %-25s %-25s %-25s %-25s %-25s %-25s \n", "No.", "Customer Name", "Date", "Staff Name",
-				"ID", "Customer Points", "Product Name");
+				"ID", "Customer Points", "Product Description");
 		output += retrieveTransactionList(transactionList, customerList, productList);
 		System.out.println(output);
 	}
@@ -320,25 +317,33 @@ public class C206_CaseStudy {
 		}
 	}
 	//Update Transaction Done by BEN
-	public static void updateTransaction (ArrayList<Transaction> transactionList) {
+	public static void updateTransaction (ArrayList<Transaction> transactionList, ArrayList<customer> customerList, ArrayList<product> productList) {
 		int transactionID = Helper.readInt("Enter transaction ID to update > ");
 		String output = String.format("%-25s %-25s %-25s %-25s \n", "Customer Name", "Date", "Staff Name", "ID");
+		int cusPoints = Helper.readInt("Enter number of points to add to customer > ");
+		String description = Helper.readString("Enter description to be change for product > ");
 		int check = -1;
-		
+		int cu = 0;
+		int pp = 0;
 		for (int i = 0; i < transactionList.size(); i++) {
 			if (transactionID == transactionList.get(i).getTransactionID()) {
-				String newCusName = Helper.readString("Enter new/existing customer name> ");
-				String newDate = Helper.readString("Enter new/existing date> ");
-				String newStaffName = Helper.readString("Enter new/existing Staff name> ");
-				int newTransactionID = Helper.readInt("Enter new/existing transaction ID> ");
-				transactionList.get(i).setCusName(newCusName);
-				transactionList.get(i).setDate(newDate);
-				transactionList.get(i).setStaffName(newStaffName);
-				transactionList.get(i).setTransactionID(newTransactionID);
-				
 				output += String.format("%-25s %-25s %-25s %-25d", transactionList.get(i).getCusName(),
 						transactionList.get(i).getDate(), transactionList.get(i).getStaffName(),
 						transactionList.get(i).getTransactionID());
+				if (transactionList.get(i).getPhoneNumber() == customerList.get(cu).getNumber()) {
+					customerList.get(cu).setPoints(customerList.get(cu).getPoints()+cusPoints);
+					System.out.println(customerList.get(cu).getName() + " points has been changed to " + customerList.get(cu).getPoints());
+				}
+				else {
+					cu += 1;
+				}
+				if (transactionList.get(i).getProductID() == productList.get(pp).getProductID()) {
+					productList.get(pp).setDescription(description);
+					System.out.println(productList.get(pp).getProductName() + " description has been changed to " + productList.get(pp).getDescription());
+				}
+				else {
+					pp += 1;
+				}
 				check = 1;
 				break;
 			}
@@ -349,6 +354,7 @@ public class C206_CaseStudy {
 		else {
 			System.out.println("Invalid Transaction ID");
 		}
+		
 	}
 
 	// Procedure (Done by Daryl)
@@ -440,7 +446,7 @@ public class C206_CaseStudy {
 	public static String retrieveProductList(ArrayList<product> productList) { //boonying
 		String output = " ";
 		for (int i = 0; i < productList.size(); i++) {
-			output += String.format("%d %-20d %-20s %-20s %-20s $%-20.2f", (i + 1), productList.get(i).getProductID(),
+			output += String.format("%-20d %-20d %-20s %-20s %-20s %-20s $%-20.2f", (i + 1), productList.get(i).getProductID(),productList.get(i).getProductName(),
 					productList.get(i).getDescription(), productList.get(i).getCategory(),
 					productList.get(i).getSupplierName(), productList.get(i).getPrice());
 		}
@@ -449,7 +455,7 @@ public class C206_CaseStudy {
 
 	public static void viewProductList(ArrayList<product> productList) { //boonying
 		C206_CaseStudy.setHeader("PRODUCT LisT");
-		String output = String.format("%s %-20s", "No.", "ID", "Description", "Category", "Supplier Name", "Price");
+		String output = String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s", "No.", "ID","Product", "Description", "Category", "Supplier Name", "Price");
 		output += retrieveProductList(productList);
 		System.out.println(output);
 	}
@@ -457,12 +463,13 @@ public class C206_CaseStudy {
 	// add product (Done by boonying)
 	public static product inputProuduct() { //boonying
 		int ProductID = Helper.readInt("Enter new product ID > ");
+		String product = Helper.readString("Enter product > ");
 		String description = Helper.readString("Enter description > ");
 		String category = Helper.readString("Enter category (Food/Beauty) > ");
 		String Supplier = Helper.readString("Enter supplier name > ");
 		double price = Helper.readDouble("Enter price > $");
 
-		product pp = new product(ProductID, description, category, Supplier, price);
+		product pp = new product(ProductID,product, description, category, Supplier, price);
 		return pp;
 	}
 

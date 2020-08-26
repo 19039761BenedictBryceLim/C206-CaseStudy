@@ -58,9 +58,9 @@ public class C206_CaseStudyTest {
 				
 				transactionList= new ArrayList<Transaction>();
 				
-				//productID, description, category, supplierName, price
-		        pr1= new product(001, "cleanser", "beauty", "Marcus", 40);
-		        pr2= new product(002, "toner", "beauty", "George", 30);
+				//productID,name, description, category, supplierName, price
+		        pr1= new product(001,"Dairy" , "cleanser", "beauty", "Marcus", 40);
+		        pr2= new product(002,"JKS", "toner", "beauty", "George", 30);
 				
 				productList= new ArrayList<product>();
 				
@@ -217,14 +217,14 @@ public class C206_CaseStudyTest {
 		
 		//Normal
 		C206_CaseStudy.addTransaction(transactionList, t1);
-		C206_CaseStudy.updateTransaction(transactionList); // Update test - Delete
+		C206_CaseStudy.updateTransaction(transactionList,customerList,productList); // Update test - Delete
 		assertSame("Test that Transaction added and updated is same as 1st item of the list?", t1, transactionList.get(0));
 		
 		//Boundary (Don't think can be tested)
 		
 		//Error
 		
-		C206_CaseStudy.updateTransaction(transactionList);
+		C206_CaseStudy.updateTransaction(transactionList,customerList,productList);
 		assertNotSame("Test that Transaction updated is not the same as 1st item of the list", t2, transactionList.get(1)); //change to transactionList.get(0) for error
 		
 		
