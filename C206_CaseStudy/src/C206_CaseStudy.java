@@ -437,7 +437,7 @@ public class C206_CaseStudy {
 	
 
 	// Product (Done by Boon Ying)
-	public static String retrieveProductList(ArrayList<product> productList) {
+	public static String retrieveProductList(ArrayList<product> productList) { //boonying
 		String output = " ";
 		for (int i = 0; i < productList.size(); i++) {
 			output += String.format("%d %-20d %-20s %-20s %-20s $%-20.2f", (i + 1), productList.get(i).getProductID(),
@@ -447,7 +447,7 @@ public class C206_CaseStudy {
 		return output;
 	}
 
-	public static void viewProductList(ArrayList<product> productList) {
+	public static void viewProductList(ArrayList<product> productList) { //boonying
 		C206_CaseStudy.setHeader("PRODUCT LisT");
 		String output = String.format("%s %-20s", "No.", "ID", "Description", "Category", "Supplier Name", "Price");
 		output += retrieveProductList(productList);
@@ -455,7 +455,7 @@ public class C206_CaseStudy {
 	}
 
 	// add product (Done by boonying)
-	public static product inputProuduct() {
+	public static product inputProuduct() { //boonying
 		int ProductID = Helper.readInt("Enter new product ID > ");
 		String description = Helper.readString("Enter description > ");
 		String category = Helper.readString("Enter category (Food/Beauty) > ");
@@ -466,13 +466,13 @@ public class C206_CaseStudy {
 		return pp;
 	}
 
-	public static void addProduct(ArrayList<product> productList, product pp) {
+	public static void addProduct(ArrayList<product> productList, product pp) {//boonying
 		productList.add(pp);
 		System.out.println("product added ");
 	}
 
 	// delete product (Done by boonying)
-	public static void deleteProduct(ArrayList<product> productList) {
+	public static void deleteProduct(ArrayList<product> productList) { //boonying
 		int productpos = LocateProduct(productList);
 		String deleteproduct = Helper.readString("Do you want to delete this product information? > ");
 		if (deleteproduct.equalsIgnoreCase("Yes")) {
@@ -481,7 +481,7 @@ public class C206_CaseStudy {
 		}
 	}
 
-	public static int LocateProduct(ArrayList<product> productList) {
+	public static int LocateProduct(ArrayList<product> productList) { //boonying
 		int ProductID = Helper.readInt("Enter new product ID > ");
 		int productpos = -1;
 		for (int i = 0; i < productList.size(); i++) {
@@ -493,7 +493,7 @@ public class C206_CaseStudy {
 	}
 
 	// Customer (Done by Rupen)
-	public static String retrieveCustomerList(ArrayList<customer> customerList) {
+	public static String retrieveCustomerList(ArrayList<customer> customerList) { // rupen
 		String output = "";
 
 		for (int i = 0; i < customerList.size(); i++) {
@@ -506,7 +506,7 @@ public class C206_CaseStudy {
 		return output;
 	}
 
-	public static void viewCustomerList(ArrayList<customer> customerList) {
+	public static void viewCustomerList(ArrayList<customer> customerList) { //rupen
 		C206_CaseStudy.setHeader("CUSTOMER LIST");
 		String output = String.format("%s %-10s %-20s  %-10s\n", "No.", "Name", "Phone number", "Reward points");
 		output += retrieveCustomerList(customerList);
@@ -515,7 +515,7 @@ public class C206_CaseStudy {
 	}
 
 	// Add customer
-	public static customer inputCustomer() {
+	public static customer inputCustomer() { // rupen
 		String name = Helper.readString("Enter name> ");
 		int number = Helper.readInt("Enter phone number> ");
 		int points = Helper.readInt("Enter points> ");
@@ -525,14 +525,14 @@ public class C206_CaseStudy {
 
 	}
 
-	public static void addCustomer(ArrayList<customer> customerList, customer c) {
+	public static void addCustomer(ArrayList<customer> customerList, customer c) { //rupen
 
 		customerList.add(c);
 		System.out.println("Customer added");
 	}
 
 	// Delete Customer (Done by Rupen)
-	public static void deleteCustomer(ArrayList<customer> customerList) {
+	public static void deleteCustomer(ArrayList<customer> customerList) { //rupen
 		// rupen
 		int customerpos = LocateCustomer(customerList);
 		String deletecustomer = Helper.readString("Do you want to delete this customer information? > ");
@@ -542,7 +542,7 @@ public class C206_CaseStudy {
 		}
 	}
 
-	public static int LocateCustomer(ArrayList<customer> customerList) {
+	public static int LocateCustomer(ArrayList<customer> customerList) { //rupen
 		String name = Helper.readString("Enter name> ");
 		int customerpos = -1;
 		for (int i = 0; i < customerList.size(); i++) {
@@ -562,9 +562,10 @@ public class C206_CaseStudy {
 		System.out.println(output);
 
 	}
+	//
 
 	// Outlet (Done by Yufan)
-	public static String retrieveAllOutlet(ArrayList<Outlet> outletList) {
+	public static String retrieveAllOutlet(ArrayList<Outlet> outletList) { //Yufan
 		String output = "";
 		for (int i = 0; i < outletList.size(); i++) {
 			output += String.format("%-25d %-25d %-25s \n", outletList.get(i).getOutlet_id(),
@@ -573,14 +574,14 @@ public class C206_CaseStudy {
 		return output;
 	}
 
-	public static void viewOutlet(ArrayList<Outlet> outletList) {
+	public static void viewOutlet(ArrayList<Outlet> outletList) { //Yufan
 		String output = String.format("%-25s %-25s %-25s \n", "OUTLET ID", "NUMBER OF STAFF", "LOCATION");
 		output += retrieveAllOutlet(outletList);
 		System.out.println(output);
 	}
 
 	// Add Outlet (Done by: Yufan)
-	public static Outlet inputOutlet() {
+	public static Outlet inputOutlet() { //Yufan
 
 		String location = Helper.readString("Enter location: ");
 		int outlet_id = Helper.readInt("Enter outlet_id: ");
@@ -590,13 +591,13 @@ public class C206_CaseStudy {
 		return ou;
 	}
 
-	public static void addOutlet(ArrayList<Outlet> outletList, Outlet ou) {
+	public static void addOutlet(ArrayList<Outlet> outletList, Outlet ou) { //Yufan
 		outletList.add(ou);
 		System.out.println("Outlet added ");
 	}
 
 	// Delete Outlet (Done by: Yufan)
-	public static void deleteOutlet(ArrayList<Outlet> outletList) {
+	public static void deleteOutlet(ArrayList<Outlet> outletList) { //Yufan
 		int outpos = LocateOutlet(outletList);
 		String yesorno = Helper.readString("You sure u want to delete this outlet? (Yes/No)>");
 		if (yesorno.equalsIgnoreCase("Yes")) {
@@ -605,7 +606,7 @@ public class C206_CaseStudy {
 		}
 	}
 
-	public static int LocateOutlet(ArrayList<Outlet> outletList) {
+	public static int LocateOutlet(ArrayList<Outlet> outletList) { //Yufan
 
 		int outlet_id = Helper.readInt("Enter outlet_id: ");
 		int outpos=-1;
