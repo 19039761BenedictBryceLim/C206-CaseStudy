@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-
 public class C206_CaseStudy {
 
 	private static final int Exit_Procedure = 6;

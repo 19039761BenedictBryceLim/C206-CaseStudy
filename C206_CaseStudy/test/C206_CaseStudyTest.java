@@ -66,7 +66,7 @@ public class C206_CaseStudyTest {
 				
 				//location, outlet_id,number_of_staff
 				o1= new Outlet("Raffles place", 01, 50, 9);
-				o2= new Outlet("Chinatown", 02, 40, 8);
+				o2= new Outlet("Chinatown", 02, 40, 10);
 				
 				outletList= new ArrayList<Outlet>();
 				
