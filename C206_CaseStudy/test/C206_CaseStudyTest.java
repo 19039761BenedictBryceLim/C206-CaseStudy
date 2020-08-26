@@ -65,8 +65,8 @@ public class C206_CaseStudyTest {
 				productList= new ArrayList<product>();
 				
 				//location, outlet_id,number_of_staff
-				o1= new Outlet("Raffles place", 01, 50);
-				o2= new Outlet("Chinatown", 02, 40);
+				o1= new Outlet("Raffles place", 01, 50, 9);
+				o2= new Outlet("Chinatown", 02, 40, 8);
 				
 				outletList= new ArrayList<Outlet>();
 				
