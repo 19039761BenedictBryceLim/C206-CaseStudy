@@ -622,7 +622,7 @@ public class C206_CaseStudy {
 
 	// Header
 	public static void setHeader(String header) {
-		Helper.line(80, "-");
+		Helper.line(80, "-");	
 		System.out.println(header);
 		Helper.line(80, "-");
 
