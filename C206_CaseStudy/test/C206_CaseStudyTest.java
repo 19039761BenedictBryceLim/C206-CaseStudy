@@ -324,6 +324,7 @@ public class C206_CaseStudyTest {
 	    assertEquals("Test that product arraylist size is 2", 2, productList.size());
 	  
 	  }
+	
 	public void deleteProductTest() {
 		    //boundary 
 		    assertNotNull("Test if there is valid product arraylist to delete product information", productList);
@@ -338,22 +339,39 @@ public class C206_CaseStudyTest {
 			productList.clear();
 		  }
 	
-	/*
-	public void TopVendorsreturnTest() {
-	    // boundary
-	    assertNotNull("Test if there is valid vendor in the arraylist to return ", productList);
-	    C206_CaseStudy.addProduct(productList, pr1);
+	public void TopProductsreturnTest() {
+		//boundary
+		assertNotNull("Test if there is valid product arraylist to return to ", productList);
+		C206_CaseStudy.addProduct(productList, pr1);
+		C206_CaseStudy.addProduct(productList, pr2);
+		
+		//normal - Given an empty list, after returning 2 items, test if the size of the list is 0
+		C206_CaseStudy.addProduct(productList, pr1);
 	    C206_CaseStudy.addProduct(productList, pr2);
+		C206_CaseStudy.returnProduct(productList);
+		assertEquals("Test that product arraylist size is 0", 0, productList.size());
+		
+		// Test that the top product return in the productList can't be viewed if it's empty - error
+		assertEquals("Test that productList is empty after return", 0, productList.size());
+		
+	}
+	
+	public void TopVendorsreturnTest() {
+		// boundary
+		assertNotNull("Test if there is valid vendor in the arraylist to return ", productList);
+		C206_CaseStudy.addProduct(productList, pr1);
+		C206_CaseStudy.addProduct(productList, pr2);
+		
+		// normal - Given an empty list, after returning 2 vendors, test if the size of the list is 0
+		C206_CaseStudy.addProduct(productList, pr1);
+	    C206_CaseStudy.addProduct(productList, pr2);
+	    C206_CaseStudy.returnVendor(productList);
+	    assertEquals("Test that the vendor in product arraylist size is 0", 0, productList.size());
 	    
-	    // normal - Given an empty list, after returning 2 vendors, test if the size of the list is 0
-	    C206_CaseStudy.addProduct(productList, pr1);
-	      C206_CaseStudy.addProduct(productList, pr2);
-	      C206_CaseStudy.returnVendor(productList);
-	      assertEquals("Test that the vendor in product arraylist size is 0", 0, productList.size());
-	      
-	      // Test that the top vendor return in the productList can't be viewed if it's empty - error
-	      assertEquals("Test that vendor in the productList is empty after return", 0, productList.size());
-	*/
+	    // Test that the top vendor return in the productList can't be viewed if it's empty - error
+	    assertEquals("Test that vendor in the productList is empty after return", 0, productList.size());
+	    
+	}
 	
 	//END OF PRODUCT TEST
 	
