@@ -264,7 +264,7 @@ public class C206_CaseStudy {
 
 	}
 
-	// Transaction
+	// Transaction Done by Benedict
 	public static String retrieveTransactionList(ArrayList<Transaction> transactionList , ArrayList<customer> customerList, ArrayList<product> productList) {
 		String output = "";
 		int cu = 0;
@@ -290,6 +290,8 @@ public class C206_CaseStudy {
 		return output;
 	}
 
+	
+	//View Transaction Done by Benedict
 	public static void viewTransactionList(ArrayList<Transaction> transactionList, ArrayList<customer> customerList, ArrayList<product> productList) {
 		C206_CaseStudy.setHeader("TRANSACTION LIST");
 		String output = String.format("%s %-25s %-25s %-25s %-25s %-25s %-25s \n", "No.", "Customer Name", "Date", "Staff Name",
@@ -298,7 +300,7 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 
-	// Add Transaction
+	// Add Transaction Done by Benedict
 	public static Transaction inputTransaction() {
 		String CN = Helper.readString("Enter Customer Name > ");
 		String date = Helper.readString("Enter date > ");
@@ -319,7 +321,7 @@ public class C206_CaseStudy {
 		System.out.println("Transaction added");
 	}
 
-	// Archive Transaction
+	// Archive Transaction Done by Benedict
 	public static void archiveTransaction(ArrayList<Transaction> transactionList) {
 		int ID = Helper.readInt("Enter Transaction ID > ");
 		int pos = -1;
@@ -338,7 +340,7 @@ public class C206_CaseStudy {
 			System.out.println("Successfully archived.");
 		}
 	}
-	//Update Transaction Done by BEN
+	//Update Transaction Done by Benedict
 	public static void updateTransaction (ArrayList<Transaction> transactionList, ArrayList<customer> customerList, ArrayList<product> productList) {
 		int transactionID = Helper.readInt("Enter transaction ID to update > ");
 		String output = String.format("%-25s %-25s %-25s %-25s \n", "Customer Name", "Date", "Staff Name", "ID");
