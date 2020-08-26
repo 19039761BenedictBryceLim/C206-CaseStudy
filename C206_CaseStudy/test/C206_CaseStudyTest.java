@@ -228,7 +228,6 @@ public class C206_CaseStudyTest {
 		assertNotSame("Test that Transaction updated is not the same as 1st item of the list", t2, transactionList.get(1)); //change to transactionList.get(0) for error
 		
 		
-		
 	}
 	
 	

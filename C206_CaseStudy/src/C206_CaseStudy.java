@@ -134,7 +134,14 @@ public class C206_CaseStudy {
 						C206_CaseStudy.viewOutlet(outletList);
 					} else if (option == Delete_Outlet) {
 						C206_CaseStudy.deleteOutlet(outletList);
-					} else if (option == 4) {
+					}
+					else if (option == 4 ) {
+						C206_CaseStudy.Updatestaffperoutlet(outletList);
+					}
+					else if (option == 5) {
+						C206_CaseStudy.topreturnsperoutlet(outletList);
+					}
+					else if (option == 6) {
 						System.out.println("Bye!");
 					} else {
 						System.out.println("Invalid Option.");
@@ -226,7 +233,9 @@ public class C206_CaseStudy {
 		System.out.println("1. Add Outlet");
 		System.out.println("2. View Outlet");
 		System.out.println("3. Delete Outlet");
-		System.out.println("4. Quit");
+		System.out.println("4. Update Staff");
+		System.out.println("5. Top return");
+		System.out.println("6. Quit");
 		Helper.line(80, "-");
 	}
 
@@ -593,8 +602,9 @@ public class C206_CaseStudy {
 		String location = Helper.readString("Enter location: ");
 		int outlet_id = Helper.readInt("Enter outlet_id: ");
 		int number_of_staff = Helper.readInt("Enter Number of staff: ");
+		int number_of_returns = Helper.readInt("Enter number of returns: ");
 
-		Outlet ou = new Outlet(location, outlet_id, number_of_staff);
+		Outlet ou = new Outlet(location, outlet_id, number_of_staff, number_of_returns);
 		return ou;
 	}
 
@@ -624,6 +634,45 @@ public class C206_CaseStudy {
 			}
 		return outpos;
 	}
+	//update staff per staff per outlet (Yufan)
+	  public static void Updatestaffperoutlet(ArrayList<Outlet> outletList) {
+	    boolean outletexist=false;
+	    int outletpos=-1;
+	    int outletid=Helper.readInt("Enter outlet ID to be updated: ");
+	    while(outletexist==false) {
+	    for(int i=0;i<outletList.size(); i++) {
+	      if(outletid == outletList.get(i).getOutlet_id()) {
+	        outletexist=true;
+	        outletpos=i;
+	        break;
+	      }
+	    if(outletexist) {
+	      System.out.println("This outlet ID does not exist try agina");
+	      outletid=Helper.readInt("Enter outlet ID to be updated: ");
+	    }else {
+	      outletexist=false;
+	    }
+	    }
+	    }
+	    int number_of_staff = Helper.readInt("Enter number of staff to be updated: ");
+	    outletList.get(outletpos).setNumber_of_staff(number_of_staff);
+	    System.out.println("Outlet staff updated");
+	  }
+	  
+	  //top returns per outlet (Yufan)
+	  
+	  public static void topreturnsperoutlet (ArrayList<Outlet> outletList) {
+	    int Highestreturn = outletList.get(0).getNumber_of_return();
+	    int Highestoutletpos = 0; 
+	    for (int i = 0; i<outletList.size(); i++) { 
+	      if ( Highestreturn < outletList.get(i).getNumber_of_return()) {
+	        Highestreturn = outletList.get(i).getNumber_of_return();
+	        Highestoutletpos = i; 
+	      }
+	    }
+	    
+	    System.out.println ("Outlet which has the highest return " + outletList.get(Highestoutletpos).getOutlet_id() + " located at " + outletList.get(Highestoutletpos).getLocation());
+	  }
 
 
 
