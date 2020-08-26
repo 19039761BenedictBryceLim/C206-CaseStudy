@@ -421,10 +421,10 @@ public class C206_CaseStudy {
 			if (procedure == procedureList.get(i).getProcedureID()) {
 				pos = i;
 			}
-			String confirmation = Helper.readString("Confirm Delete (Yes/No) >");
-			if (confirmation.equalsIgnoreCase("Yes")) {
-				procedureList.remove(pos);
-			}
+		}
+		String confirmation = Helper.readString("Confirm Delete (Yes/No) >");
+		if (confirmation.equalsIgnoreCase("Yes")) {
+			procedureList.remove(pos);
 		}
 	}
 	
