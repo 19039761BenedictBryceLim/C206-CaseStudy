@@ -1,4 +1,4 @@
-//Done by Benedict
+//Done by Benedict 
 public class Transaction {
 	private String CusName;
 	private String date;

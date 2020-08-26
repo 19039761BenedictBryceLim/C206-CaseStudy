@@ -59,8 +59,8 @@ public class C206_CaseStudyTest {
 				transactionList= new ArrayList<Transaction>();
 				
 				//productID,name, description, category, supplierName, price
-		        pr1= new product(001,"Dairy" , "cleanser", "beauty", "Marcus", 40);
-		        pr2= new product(002,"JKS", "toner", "beauty", "George", 30);
+		        pr1= new product(001,"Dairy" , "cleanser", "beauty", "Marcus", 40, 10);
+		        pr2= new product(002,"JKS", "toner", "beauty", "George", 30, 20);
 				
 				productList= new ArrayList<product>();
 				
